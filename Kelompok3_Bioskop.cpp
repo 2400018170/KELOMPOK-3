@@ -35,3 +35,13 @@ bool adminlogin() {
 void clearInputBuffer() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
+
+int main (){
+     bool isLoggedIn = false;
+
+    while (!isLoggedIn) {
+        isLoggedIn = adminlogin();
+    }
+    
+    return 0;
+}
