@@ -7,8 +7,16 @@
 #include <limits>  
 using namespace std;
 
-struct Bioskop {
+struct Film {
+  string judul;
+  string jadwal;
+  string kursi [99];
+}
+
+struct Pemesanan {
   string nama;
+  string jadwal;
+  bool kursi;
 }
 
 // Fungsi untuk login admin
