@@ -7,7 +7,7 @@
 #include <limits>  
 using namespace std;
 
-struct Film {
+struct Menu {
   string judul;
   string jadwal;
   string kursi [99];
@@ -15,8 +15,10 @@ struct Film {
 
 struct Pemesanan {
   string nama;
-  string jadwal;
-  bool kursi;
+  string kontak;
+  string filmpilih;
+  string jadwalDipilih;
+  string kursiDipilih;
 }
 
 // Fungsi untuk login admin
