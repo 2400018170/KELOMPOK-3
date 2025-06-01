@@ -1,16 +1,19 @@
 #include <iostream>
+#include <fstream>      // Diperlukan untuk file
 #include <queue>
 #include <stack>
 #include <string>
 #include <vector>
 #include <sstream>
-#include <limits>  
+#include <limits>
+
 using namespace std;
 
+// Fungsi untuk menyimpan data pembeli
 void simpanDataPembeli() {
     string nama, nowa;
 
-    cin.ignore();
+    cin.ignore(); // Bersihkan buffer sebelum getline
     cout << "=========== INPUT DATA PEMBELI ===========" << endl;
     cout << "Masukkan Nama Pembeli       : ";
     getline(cin, nama);
@@ -29,10 +32,10 @@ void simpanDataPembeli() {
     file << "------------------------------------------\n";
 
     file.close();
-    cout << "\n Data berhasil disimpan ke file.\n\n";
+    cout << "\n? Data berhasil disimpan ke file.\n\n";
 }
 
-// Fungsi untuk menampilkan semua data pembeli dari file
+// Fungsi untuk menampilkan data pembeli
 void tampilkanDataPembeli() {
     ifstream file("datapembeliantiket.txt");
     if (!file.is_open()) {
@@ -40,7 +43,7 @@ void tampilkanDataPembeli() {
         return;
     }
 
-    cout << "=========== DAFTAR DATA PEMBELI ===========" << endl;
+    cout << "\n=========== DAFTAR DATA PEMBELI ===========" << endl;
     string line;
     while (getline(file, line)) {
         cout << line << endl;
@@ -49,7 +52,7 @@ void tampilkanDataPembeli() {
     cout << "===========================================\n\n";
 }
 
-// Fungsi untuk login admin
+// Fungsi login admin
 bool adminlogin() {
     string username, password;
     const string ADMIN_USERNAME = "kelompok3";
@@ -62,34 +65,24 @@ bool adminlogin() {
     cin >> password;
 
     if (username == ADMIN_USERNAME && password == ADMIN_PASSWORD) {
-        cout << "Login berhasil!\n" << endl;
+        cout << " Login berhasil!\n" << endl;
         return true;
     } else {
-        cout << "Login gagal! Silakan coba lagi.\n" << endl;
+        cout << " Login gagal! Silakan coba lagi.\n" << endl;
         return false;
     }
 }
 
-void clearInputBuffer() {
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
-
-void cetakBingkaiAtasBawah(int panjang) {
-    for (int i = 0; i < panjang; i++) {
-        cout << "=";
-    }
-    cout << endl;
-}
-
-int main (){
-     bool isLoggedIn = false;
-
+int main() {
+    bool isLoggedIn = false;
     while (!isLoggedIn) {
         isLoggedIn = adminlogin();
     }
+    system("pause");
+    system("CLS");
 
-  char ulang;
-    do{
+    char ulang;
+    do {
         int opsi;
         cout <<"========DAFTAR MENU========" <<endl;
         cout <<" 1. Tambah Pembeli Ke Antrian "<<endl;
@@ -98,20 +91,33 @@ int main (){
         cout <<" 4. Chekout "<<endl;
         cout <<" 5. Cetak Tiket "<<endl;
         cout <<" 6. Keluar "<<endl;
-        
-        cout<<"Masukkan pilihan anda : "; cin>>opsi;
-        
-        if(opsi==1){
-            char ulang;
-            do{
-                simpanDataPembeli();
-                cout<<"Tambah pembeli lagi? (y/n) : "; cin>>ulang;
-                cin.ignore();
-            }while(ulang=='y' || ulang=='Y');
+        cout << "Masukkan pilihan anda : ";
+        cin >> opsi;
+
+        switch (opsi) {
+            case 1: {
+                char tambahLagi;
+                do {
+                    simpanDataPembeli();
+                    cout << "Tambah pembeli lagi? (y/n) : ";
+                    cin >> tambahLagi;
+                    cin.ignore();
+                } while (tambahLagi == 'y' || tambahLagi == 'Y');
+                break;
+            }
+            case 2:
+                tampilkanDataPembeli();
+                break;
+            case 6:
+                cout << "Keluar dari program. Terima kasih!\n";
+                return 0;
+            default:
+                cout << " Pilihan tidak tersedia.\n";
         }
-        cout << "Apakah Anda ingin mengulangi program Utama? (y/n): ";
+
+        cout << "Kembali ke menu utama? (y/n): ";
         cin >> ulang;
-    }while (ulang == 'y' || ulang == 'Y');
-    
+    } while (ulang == 'y' || ulang == 'Y');
+
     return 0;
 }
