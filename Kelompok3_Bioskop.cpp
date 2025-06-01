@@ -3,8 +3,8 @@
 #include <stack>
 #include <string>
 #include <vector>
-#include <sstream> // Untuk menggantikan to_string
-#include <limits>  // Untuk validasi input
+#include <sstream>
+#include <limits>  
 using namespace std;
 
-
+struct Bioskop
