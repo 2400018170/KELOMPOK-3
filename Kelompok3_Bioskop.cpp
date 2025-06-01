@@ -8,12 +8,10 @@
 using namespace std;
 
 struct Menu {
-  string judul;
-  string jadwal;
-  string kursi [99];
+  string nama;
 }
 
-struct Pemesanan {
+struct Film {
   string nama;
   string kontak;
   string filmpilih;
@@ -44,6 +42,13 @@ bool adminlogin() {
 
 void clearInputBuffer() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+void cetakBingkaiAtasBawah(int panjang) {
+    for (int i = 0; i < panjang; i++) {
+        cout << "=";
+    }
+    cout << endl;
 }
 
 int main (){
