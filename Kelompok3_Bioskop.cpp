@@ -13,10 +13,6 @@ struct Menu {
 
 struct Film {
   string nama;
-  string kontak;
-  string filmpilih;
-  string jadwalDipilih;
-  string kursiDipilih;
 }
 
 // Fungsi untuk login admin
