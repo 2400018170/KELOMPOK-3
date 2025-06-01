@@ -12,10 +12,10 @@ struct Bioskop {
 }
 
 // Fungsi untuk login admin
-bool adminLogin() {
+bool adminlogin() {
     string username, password;
-    const string ADMIN_USERNAME = "admin";
-    const string ADMIN_PASSWORD = "password";
+    const string ADMIN_USERNAME = "kelompok3";
+    const string ADMIN_PASSWORD = "152169170";
 
     cout << "==== Login Admin ====" << endl;
     cout << "Username: ";
