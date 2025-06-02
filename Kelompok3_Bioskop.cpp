@@ -92,8 +92,6 @@ bool login() {
     return false;
 }
 
-
-
 //***Fungsi untuk menyimpan data pembeli***
 void simpanDataPembeli() {
     string nama, nowa;
@@ -270,8 +268,6 @@ int pilihFilm() {
 
     return pilihan - 1;
 }
-
-
 
 // Fungsi memilih jadwal
 string pilihJadwal(Film f) {
