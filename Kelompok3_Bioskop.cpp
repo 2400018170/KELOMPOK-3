@@ -19,8 +19,6 @@ struct Akun {
     string password;
 };
 
-
-
 void registrasi() {
     Akun akun;
     cout << "\n=== REGISTRASI AKUN ===\n";
@@ -253,8 +251,6 @@ void tampilkanDaftarFilm() {
     }
 }
 
-
-
 // Fungsi memilih film
 int pilihFilm() {
     int pilihan;
@@ -335,8 +331,6 @@ void inisialisasiKursi() {
     }
 }
 
-
-
 // Menampilkan daftar studio
 void tampilkanStudio() {
     cout << "\n=========== PILIH STUDIO ===========" << endl;
@@ -348,8 +342,6 @@ void tampilkanStudio() {
     }
     cout << "====================================\n";
 }
-
-
 
 // Menampilkan kursi dari studio tertentu
 void tampilkanKursi(int studioIndex) {
@@ -374,8 +366,6 @@ void tampilkanKursi(int studioIndex) {
         cout << endl;
     }
 }
-
-
 
 //FUNGSI MEMESAN KURSI
 void pesanKursi() {
@@ -424,8 +414,6 @@ void pesanKursi() {
     tampilkanKursi(studioIndex);
 }
 
-
-
 void daftar_menu(){
 	cout <<"======== DAFTAR MENU ========" <<endl;
         cout <<" 1. Tambah Pembeli Ke Antrian "<<endl;
@@ -437,8 +425,6 @@ void daftar_menu(){
         cout <<" 7. Keluar "<<endl;
         cout << "Masukkan pilihan anda : ";
 }
-
-
 
 //***MAIN FUNCTION***
 int main() {
