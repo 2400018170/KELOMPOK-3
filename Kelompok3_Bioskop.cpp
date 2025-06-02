@@ -1,6 +1,5 @@
-
 #include <iostream>
-#include <fstream>      // Diperlukan untuk file
+#include <fstream>      // Diperlukan untuk file.txt
 #include <queue>
 #include <stack>
 #include <string>
@@ -12,7 +11,92 @@
 
 using namespace std;
 
-// Fungsi untuk menyimpan data pembeli
+struct Akun {
+    string nama;
+    string telepon;
+    string email;
+    string username;
+    string password;
+};
+
+
+
+void registrasi() {
+    Akun akun;
+    cout << "\n=== REGISTRASI AKUN ===\n";
+    cout << "Nama Lengkap     : ";
+    getline(cin, akun.nama);
+    cout << "Nomor Telepon    : ";
+    getline(cin, akun.telepon);
+    cout << "Email            : ";
+    getline(cin, akun.email);
+    cout << "Username         : ";
+    getline(cin, akun.username);
+    cout << "Password         : ";
+    getline(cin, akun.password);
+
+    ofstream file("akun.txt", ios::app);
+    if (file.is_open()) {
+        file << akun.nama << ";" << akun.telepon << ";" << akun.email << ";" << akun.username << ";" << akun.password << endl;
+        file.close();
+        cout << "\nRegistrasi berhasil!\n";
+    } else {
+        cout << "\nGagal menyimpan data!\n";
+    }
+}
+
+void menu_login(){
+	cout << "\n=== MENU ===\n";
+        cout << "1. Registrasi\n";
+        cout << "2. Login\n";
+        cout << "0. Keluar\n";
+        cout << "Pilih: ";
+}
+
+bool login() {
+    string inputUser, inputPass;
+    system("cls");
+    cout << "\n=== LOGIN ===\n";
+    cout << "Username: ";
+    getline(cin, inputUser);
+    cout << "Password: ";
+    getline(cin, inputPass);
+
+    ifstream file("akun.txt");
+    if (!file.is_open()) {
+        cout << "Gagal membuka file data akun.\n";
+        return false;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string nama, telepon, email, username, password;
+
+        getline(ss, nama, ';');
+        getline(ss, telepon, ';');
+        getline(ss, email, ';');
+        getline(ss, username, ';');
+        getline(ss, password, ';');
+
+        if (username == inputUser && password == inputPass) {
+            cout << "\nLogin berhasil!\n";
+            cout << "Selamat datang, " << nama << "!\n";
+            cout << "Email   : " << email << "\n";
+            cout << "Telepon : " << telepon << "\n";
+            return true;
+        }
+    }
+
+    cout << "\nLogin gagal. Username atau password salah.\n";
+    system("pause");
+    login();
+    return false;
+}
+
+
+
+//***Fungsi untuk menyimpan data pembeli***
 void simpanDataPembeli() {
     string nama, nowa;
 
@@ -26,7 +110,7 @@ void simpanDataPembeli() {
 
     ofstream file("datapembeliantiket.txt", ios::app);
     if (!file.is_open()) {
-        cerr << "? Gagal membuka file untuk ditulis." << endl;
+        cerr << " Gagal membuka file untuk ditulis." << endl;
         return;
     }
 
@@ -35,7 +119,7 @@ void simpanDataPembeli() {
     file << "------------------------------------------\n";
 
     file.close();
-    cout << "\n? Data berhasil disimpan ke file.\n\n";
+    cout << "\nData berhasil disimpan ke file.\n\n";
 }
 
 // Fungsi untuk menampilkan data pembeli
@@ -53,27 +137,6 @@ void tampilkanDataPembeli() {
     }
     file.close();
     cout << "===========================================\n\n";
-}
-
-// Fungsi login admin
-bool adminlogin() {
-    string username, password;
-    const string ADMIN_USERNAME = "kelompok3";
-    const string ADMIN_PASSWORD = "152169170";
-
-    cout << "==== Login Admin ====" << endl;
-    cout << "Username: ";
-    cin >> username;
-    cout << "Password: ";
-    cin >> password;
-
-    if (username == ADMIN_USERNAME && password == ADMIN_PASSWORD) {
-        cout << " Login berhasil!\n" << endl;
-        return true;
-    } else {
-        cout << " Login gagal! Silakan coba lagi.\n" << endl;
-        return false;
-    }
 }
 
 const int JUMLAH_FILM = 9;
@@ -190,6 +253,8 @@ void tampilkanDaftarFilm() {
     }
 }
 
+
+
 // Fungsi memilih film
 int pilihFilm() {
     int pilihan;
@@ -209,6 +274,8 @@ int pilihFilm() {
 
     return pilihan - 1;
 }
+
+
 
 // Fungsi memilih jadwal
 string pilihJadwal(Film f) {
@@ -268,6 +335,8 @@ void inisialisasiKursi() {
     }
 }
 
+
+
 // Menampilkan daftar studio
 void tampilkanStudio() {
     cout << "\n=========== PILIH STUDIO ===========" << endl;
@@ -279,6 +348,8 @@ void tampilkanStudio() {
     }
     cout << "====================================\n";
 }
+
+
 
 // Menampilkan kursi dari studio tertentu
 void tampilkanKursi(int studioIndex) {
@@ -304,7 +375,9 @@ void tampilkanKursi(int studioIndex) {
     }
 }
 
-// Fungsi untuk memesan kursi
+
+
+//FUNGSI MEMESAN KURSI
 void pesanKursi() {
     tampilkanStudio();
     int pilihanStudio;
@@ -351,18 +424,10 @@ void pesanKursi() {
     tampilkanKursi(studioIndex);
 }
 
-int main() {
-    bool isLoggedIn = false;
-    while (!isLoggedIn) {
-        isLoggedIn = adminlogin();
-    }
-    system("pause");
-    system("CLS");
 
-    char ulang;
-    do {
-        int opsi;
-        cout <<"========DAFTAR MENU========" <<endl;
+
+void daftar_menu(){
+	cout <<"======== DAFTAR MENU ========" <<endl;
         cout <<" 1. Tambah Pembeli Ke Antrian "<<endl;
         cout <<" 2. Daftar FILM dan Pemesanan Tiket "<<endl;
         cout <<" 3. Pemilihan Kursi "<<endl;
@@ -371,78 +436,115 @@ int main() {
         cout <<" 6. Tampilkan Data Pembeli "<<endl;
         cout <<" 7. Keluar "<<endl;
         cout << "Masukkan pilihan anda : ";
-        cin >> opsi;
+}
 
-        switch (opsi) {
-            case 1: {
-                char tambahLagi;
-                do {
-                    simpanDataPembeli();
-                    cout << "Tambah pembeli lagi? (y/n) : ";
-                    cin >> tambahLagi;
-                    cin.ignore();
-                } while (tambahLagi == 'y' || tambahLagi == 'Y');
-                break;
-            }
-            case 2: {
-            	char mengulang;
-            	do{
-            		tampilkanDaftarFilm();
+
+
+//***MAIN FUNCTION***
+int main() {
+	int pilihan;
+    	do {
+        	menu_login();
+        	cin >> pilihan;
+        	cin.ignore(); // membersihkan newline dari input buffer
+
+        	switch (pilihan) {
+            	case 1:
+                	registrasi();
+                	break;
+            	case 2:
+                	login();
+                	pilihan = 0;
+                	break;
+            	case 0:
+                	cout << "Terima kasih!\n";
+                	return 0;
+                	break;
+            	default:
+                	cout << "Pilihan tidak valid.\n";
+        	}
+    	} while (pilihan != 0);
+    cout << "\n";
+    system("pause");
+    system("CLS");
+
+    char ulang;
+    	do {
+        	int opsi;
+        	daftar_menu();
+        	cin >> opsi;
+
+        	switch (opsi) {
+            	case 1: {
+                	char tambahLagi;
+                	do {
+                    	simpanDataPembeli();
+                    	cout << "Tambah pembeli lagi? (y/n) : ";
+                    	cin >> tambahLagi;
+                    	cin.ignore();
+                	} while (tambahLagi == 'y' || tambahLagi == 'Y');
+                	break;
+            	}
+            	case 2: {
+            		char mengulang;
+            		do{
+            			tampilkanDaftarFilm();
             		
-            		int indexFilm = pilihFilm();
-				    if (indexFilm == -1) return 1;
+            			int indexFilm = pilihFilm();
+				    	if (indexFilm == -1) return 1;
 				
-				    Film filmTerpilih = daftarFilm[indexFilm];
-				    cout << "\nAnda memilih: " << filmTerpilih.judul << endl;
+				    	Film filmTerpilih = daftarFilm[indexFilm];
+				    	cout << "\nAnda memilih: " << filmTerpilih.judul << endl;
 				
-				    string jadwalDipilih = pilihJadwal(filmTerpilih);
-				    if (jadwalDipilih == "") return 1;
+				    	string jadwalDipilih = pilihJadwal(filmTerpilih);
+				    	if (jadwalDipilih == "") return 1;
 				
-				    int jumlahTiket = masukkanJumlahTiket();
-				    if (jumlahTiket == -1) return 1;
+				    	int jumlahTiket = masukkanJumlahTiket();
+				    	if (jumlahTiket == -1) return 1;
 				
-				    int totalHarga = jumlahTiket * filmTerpilih.harga;
+				    	int totalHarga = jumlahTiket * filmTerpilih.harga;
 				
-				    cout << "\n=== Ringkasan Pesanan ===\n";
-				    cout << "Judul       : " << filmTerpilih.judul << endl;
-				    cout << "Genre       : " << filmTerpilih.genre << endl;
-				    cout << "Durasi      : " << filmTerpilih.durasi << endl;
-				    cout << "Jadwal      : " << jadwalDipilih << endl;
-				    cout << "Harga Tiket : Rp" << filmTerpilih.harga << endl;
-				    cout << "Jumlah      : " << jumlahTiket << " tiket\n";
-				    cout << "Total Harga : Rp" << totalHarga << endl;
-				    cout << "Tiket berhasil dipesan! Selamat menonton!\n";
+				    	cout << "\n=== Ringkasan Pesanan ===\n";
+				    	cout << "Judul       : " << filmTerpilih.judul << endl;
+				    	cout << "Genre       : " << filmTerpilih.genre << endl;
+				    	cout << "Durasi      : " << filmTerpilih.durasi << endl;
+				    	cout << "Jadwal      : " << jadwalDipilih << endl;
+				    	cout << "Harga Tiket : Rp" << filmTerpilih.harga << endl;
+				    	cout << "Jumlah      : " << jumlahTiket << " tiket\n";
+				    	cout << "Total Harga : Rp" << totalHarga << endl;
+				    	cout << "Tiket berhasil dipesan! Selamat menonton!\n";
 				    
-				    cout << "Ingin memesan lagi? (y/n) : ";
-                    cin >> mengulang;
-					}while (mengulang == 'y' || mengulang == 'Y');
-				break;
-			}
-			case 3: {
-				char ulang;
-				do{
-					inisialisasiKursi();
-			        cout << "\n====== SISTEM PEMESANAN KURSI BIOSKOP XXI ======\n";
-			        pesanKursi();
+				    	cout << "Ingin memesan lagi? (y/n) : ";
+                    	cin >> mengulang;
+						}while (mengulang == 'y' || mengulang == 'Y');
+					break;
+				}
+				case 3: {
+					char ulang;
+					do{
+						inisialisasiKursi();
+			        	cout << "\n====== SISTEM PEMESANAN KURSI BIOSKOP XXI ======\n";
+			        	pesanKursi();
 			
-			        cout << "\nPesan kursi lagi? (y/n): ";
-			        cin >> ulang;
-				}while (ulang == 'y' || ulang == 'Y');
-				break;
-			}
-            case 6:
-                tampilkanDataPembeli();
-                break;
-            case 7:
-                cout << "Keluar dari program. Terima kasih!\n";
-                return 0;
-            default:
-                cout << " Pilihan tidak tersedia.\n";
-        }
+			        	cout << "\nPesan kursi lagi? (y/n): ";
+			        	cin >> ulang;
+					}while (ulang == 'y' || ulang == 'Y');
+					break;
+				}
+            	case 6:
+                	tampilkanDataPembeli();
+                	break;
+            	case 7:
+                	cout << "Keluar dari program. Terima kasih!\n";
+                	return 0;
+            	default:
+                	cout << "Pilihan tidak tersedia.\n";
+        	}
 
-        cout << "Kembali ke menu utama? (y/n): ";
-        cin >> ulang;
-    } while (ulang == 'y' || ulang == 'Y');
+        	cout << "Kembali ke menu utama? (y/n): ";
+        	cin >> ulang;
+    	} while (ulang == 'y' || ulang == 'Y');
 
+	cout << "Keluar dari program. Terima kasih!\n";
     return 0;
 }
