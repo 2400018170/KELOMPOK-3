@@ -436,14 +436,17 @@ void tampildatapemesanankursi(){
 }
 
 void daftar_menu(){
-	cout <<"======== DAFTAR MENU ========" <<endl;
-        cout <<" 1. Tambah Pembeli Ke Antrian "<<endl;
-        cout <<" 2. Daftar FILM dan Pemesanan Tiket "<<endl;
-        cout <<" 3. Pemilihan Kursi "<<endl;
-        cout <<" 4. Cetak Tiket "<<endl;
-        cout <<" 5. Tampilkan Data Pembeli "<<endl;
-        cout <<" 6. Keluar "<<endl;
-        cout << "Masukkan pilihan anda : ";
+	cout <<"================ DAFTAR MENU ================" <<endl;
+		cout <<endl;
+        cout <<"	1. Tambah Pembeli Ke Antrian "<<endl;
+        cout <<" 	2. Daftar FILM dan Pemesanan Tiket "<<endl;
+        cout <<"	3. Pemilihan Kursi "<<endl;
+        cout <<"	4. Cetak Tiket "<<endl;
+        cout <<"	5. Tampilkan Data Pembeli "<<endl;
+        cout <<"	6. Keluar "<<endl;
+        cout <<"	Masukkan pilihan anda : ";
+        cout <<endl;
+    cout <<"=============================================" <<endl;
 }
 
 void tampilringkasan(){
@@ -526,11 +529,15 @@ int main() {
 				    	int totalHarga = jumlahTiket * filmTerpilih.harga;
 				    	
 				    	int metode;
-				    	cout<<"\n===Metode Pembayaran===\n";
+				    	cout<<"\n======Metode Pembayaran======\n";
+				    	cout<<endl;
 				    	cout<<"1. cash\n";
 				    	cout<<"2. Debit\n";
 				    	cout<<"3. Qris\n";
+				    	cout<<endl;
 				    	cout<<"pilih metode pembayaran(1-2) : ";cin>>metode;
+				    	cout<<endl;
+				    	cout<<"\n=============================\n";
 				    	
 				    	int uangDibayar=0, kembalian=0;
 				    	string metodeBayarStr;
@@ -572,7 +579,8 @@ int main() {
 							return 1;
 						}
 				
-				    	file << "\n=== Ringkasan Pesanan ===\n";
+				    	file << "\n========== Ringkasan Pesanan ===========\n";
+				    	file << endl;
 				    	file << "Judul       : " << filmTerpilih.judul << endl;
 				    	file << "Genre       : " << filmTerpilih.genre << endl;
 				    	file << "Durasi      : " << filmTerpilih.durasi << endl;
@@ -580,7 +588,9 @@ int main() {
 				    	file << "Harga Tiket : Rp" << filmTerpilih.harga << endl;
 				    	file << "Jumlah      : " << jumlahTiket << " tiket\n";
 				    	file << "Total Harga : Rp" << totalHarga << endl;
+				    	file << endl;
 				    	file << "Tiket berhasil dipesan! Selamat menonton!\n";
+				    	file << "\n========================================\n";
 				    	
 				    	file.close();
 				    
