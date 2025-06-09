@@ -406,6 +406,17 @@ void pesanKursi() {
         if (studioIndex == 4) cout << " (VIP)";
         cout << ".\n";
     }
+    
+    ofstream file("datapemesanankursi.txt",ios::app);
+    if(file){
+    	file<<"Studio "<<pilihStudio;
+    	if(studioIndex==4) file<<" (VIP) ";
+    	file<<" - kursi "<<barisChar<<kolom+1<<" Berhasil dipesan.\n";
+    	file.close();
+    	cout<<" Data Pemesanan kursi disimpan ke 'datapemesanankursi.txt \n";
+	}else{
+		cout<<"gagal menyimpan data ke file.\n";
+	}
 
     tampilkanKursi(studioIndex);
 }
@@ -420,6 +431,21 @@ void daftar_menu(){
         cout <<" 6. Tampilkan Data Pembeli "<<endl;
         cout <<" 7. Keluar "<<endl;
         cout << "Masukkan pilihan anda : ";
+}
+
+void tampilringkasan(){
+	ifstream file("ringkasanpesanan.txt";
+	if(!file){
+		cout<<"Gagal membuka file ringkasan.txt\n";
+		return;
+	}
+	
+	string baris;
+	cout<<"\n===Ringkasan pesanan anda===\n";
+	while(getline(file, baris)){
+		cout<<baris<<endl;
+	}
+	file.close();
 }
 
 //***MAIN FUNCTION***
@@ -485,16 +511,65 @@ int main() {
 				    	if (jumlahTiket == -1) return 1;
 				
 				    	int totalHarga = jumlahTiket * filmTerpilih.harga;
+				    	
+				    	int metode;
+				    	cout<<"\n===Metode Pembayaran===\n";
+				    	cout<<"1. cash\n";
+				    	cout<<"2. Debit\n";
+				    	cout<<"3. Qris\n";
+				    	cout<<"pilih metode pembayaran(1-2) : ";cin>>metode;
+				    	
+				    	int uangDibayar=0, kembalian=0;
+				    	string metodeBayarStr;
+				    	
+				    	switch (metode){
+				    		case 1: 
+				    			metodeBayarStr="cash";
+				    			cout<<"Total yang harus dibayar : Rp "<<totalHarga<<endl;
+				    			cout<<"Masukkan jumlah uang anda : Rp "; cin>>uangDibayar;
+				    			while(uangDibayar<totalHarga){
+				    				cout<<"uang tidak cukup.masukkan kembali Rp ";cin>>uangDibayar;
+								}
+								kembalian=uangDibayar-totalHarga;
+								cout<<"Pembayaran cash berhasil. kembalian anda : Rp "<<kembalian<<endl;
+								break;
+							case 2:
+								metodeBayarStr="Debit";
+								cout<<"Memproses pembayaran melalui kartu debit...\n";
+								cout<<"Pembayaran Debit sebesar Rp "<<totalHarga<<" Berhasil.\n";
+								uangDibayar=totalHarga;
+								kembalian=0;
+								break;
+							case 3:
+								metodeBayarStr="Qris";
+								cout<<"Silahkan scan QR Code pada layar...\n";
+								cout<<"[QR CODE TERTAMPIL] simulasi\n ";
+								cout<<"Pembayaran QRIS sebesar Rp "<<totalHarga<<" Berhasil.\n";
+								uangDibayar=totalHarga;
+								kembalian=0;
+								break;
+							default:
+								cout<<"Metode tidak ada. Pembayaran dibatalkan. \n";
+								return 1;
+						}
+						
+						ofstream file("ringkasanpesanan.txt");
+						if(!file){
+							cout<<"gagal membuka file untuk menulis. \n";
+							return 1;
+						}
 				
-				    	cout << "\n=== Ringkasan Pesanan ===\n";
-				    	cout << "Judul       : " << filmTerpilih.judul << endl;
-				    	cout << "Genre       : " << filmTerpilih.genre << endl;
-				    	cout << "Durasi      : " << filmTerpilih.durasi << endl;
-				    	cout << "Jadwal      : " << jadwalDipilih << endl;
-				    	cout << "Harga Tiket : Rp" << filmTerpilih.harga << endl;
-				    	cout << "Jumlah      : " << jumlahTiket << " tiket\n";
-				    	cout << "Total Harga : Rp" << totalHarga << endl;
-				    	cout << "Tiket berhasil dipesan! Selamat menonton!\n";
+				    	file << "\n=== Ringkasan Pesanan ===\n";
+				    	file << "Judul       : " << filmTerpilih.judul << endl;
+				    	file << "Genre       : " << filmTerpilih.genre << endl;
+				    	file << "Durasi      : " << filmTerpilih.durasi << endl;
+				    	file << "Jadwal      : " << jadwalDipilih << endl;
+				    	file << "Harga Tiket : Rp" << filmTerpilih.harga << endl;
+				    	file << "Jumlah      : " << jumlahTiket << " tiket\n";
+				    	file << "Total Harga : Rp" << totalHarga << endl;
+				    	file << "Tiket berhasil dipesan! Selamat menonton!\n";
+				    	
+				    	file.close();
 				    
 				    	cout << "Ingin memesan lagi? (y/n) : ";
                     	cin >> mengulang;
@@ -511,6 +586,11 @@ int main() {
 			        	cout << "\nPesan kursi lagi? (y/n): ";
 			        	cin >> ulang;
 					}while (ulang == 'y' || ulang == 'Y');
+					break;
+				}
+				case 4: {
+					tampilringkasan();
+					pesanKursi();
 					break;
 				}
             	case 6:
