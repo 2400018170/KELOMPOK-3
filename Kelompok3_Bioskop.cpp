@@ -420,6 +420,21 @@ void pesanKursi() {
     tampilkanKursi(studioIndex);
 }
 
+void tampildatapemesanankursi(){
+	ifstream file("datapemesanankursi.txt");
+	if(!file){
+		cout<<"Gagal membuka pemesanan kursi.\n";
+		return ;
+	}
+	
+	cout<<"\n===Pemesanan Kursi Anda===\n";
+	string line;
+	while(getline(file,line)){
+		cout<<line<<endl;
+	}
+	file.close();
+}
+
 void daftar_menu(){
 	cout <<"======== DAFTAR MENU ========" <<endl;
         cout <<" 1. Tambah Pembeli Ke Antrian "<<endl;
@@ -588,7 +603,7 @@ int main() {
 				}
 				case 4: {
 					tampilringkasan();
-					pesanKursi();
+					tampildatapemesanankursi();
 					break;
 				}
             	case 6:
