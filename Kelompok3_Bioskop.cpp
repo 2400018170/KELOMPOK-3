@@ -408,8 +408,7 @@ void pesanKursi() {
     }
     
     ofstream file("datapemesanankursi.txt",ios::app);
-    if(file){
-    	file<<"Studio "<<pilihStudio;
+    	if(file){
     	if(studioIndex==4) file<<" (VIP) ";
     	file<<" - kursi "<<barisChar<<kolom+1<<" Berhasil dipesan.\n";
     	file.close();
@@ -426,15 +425,14 @@ void daftar_menu(){
         cout <<" 1. Tambah Pembeli Ke Antrian "<<endl;
         cout <<" 2. Daftar FILM dan Pemesanan Tiket "<<endl;
         cout <<" 3. Pemilihan Kursi "<<endl;
-        cout <<" 4. Chekout "<<endl;
-        cout <<" 5. Cetak Tiket "<<endl;
-        cout <<" 6. Tampilkan Data Pembeli "<<endl;
-        cout <<" 7. Keluar "<<endl;
+        cout <<" 4. Cetak Tiket "<<endl;
+        cout <<" 5. Tampilkan Data Pembeli "<<endl;
+        cout <<" 6. Keluar "<<endl;
         cout << "Masukkan pilihan anda : ";
 }
 
 void tampilringkasan(){
-	ifstream file("ringkasanpesanan.txt";
+	ifstream file("ringkasanpesanan.txt");
 	if(!file){
 		cout<<"Gagal membuka file ringkasan.txt\n";
 		return;
