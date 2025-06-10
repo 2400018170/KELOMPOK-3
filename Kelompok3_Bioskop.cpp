@@ -1,635 +1,638 @@
 #include <iostream>
-#include <fstream>      // Diperlukan untuk file.txt
+#include <fstream>     
 #include <queue>
 #include <stack>
 #include <string>
+#include <cstring>
 #include <vector>
 #include <sstream>
 #include <limits>
 #include <iomanip>
 #include <cctype>
-
+#include <limits>
 using namespace std;
 
 struct Akun {
-    string nama;
-    string telepon;
+    string nama_lengkap;
+    string no_telepon;
     string email;
     string username;
     string password;
 };
 
-void registrasi() {
-    Akun akun;
-    cout << "\n=== REGISTRASI AKUN ===\n";
-    cout << "Nama Lengkap     : ";
-    getline(cin, akun.nama);
-    cout << "Nomor Telepon    : ";
-    getline(cin, akun.telepon);
-    cout << "Email            : ";
-    getline(cin, akun.email);
-    cout << "Username         : ";
-    getline(cin, akun.username);
-    cout << "Password         : ";
-    getline(cin, akun.password);
-
-    ofstream file("akun.txt", ios::app);
-    if (file.is_open()) {
-        file << akun.nama << ";" << akun.telepon << ";" << akun.email << ";" << akun.username << ";" << akun.password << endl;
-        file.close();
-        cout << "\nRegistrasi berhasil!\n";
-    } else {
-        cout << "\nGagal menyimpan data!\n";
-    }
-}
-
-void menu_login(){
-	cout << "\n=== MENU ===\n";
-        cout << "1. Registrasi\n";
-        cout << "2. Login\n";
-        cout << "0. Keluar\n";
-        cout << "Pilih: ";
-}
-
-bool login() {
-    string inputUser, inputPass;
-    system("cls");
-    cout << "\n=== LOGIN ===\n";
-    cout << "Username: ";
-    getline(cin, inputUser);
-    cout << "Password: ";
-    getline(cin, inputPass);
-
+// Membaca semua akun dari file
+vector<Akun> bacaAkun() {
+    vector<Akun> daftar;
     ifstream file("akun.txt");
-    if (!file.is_open()) {
-        cout << "Gagal membuka file data akun.\n";
-        return false;
+    Akun a;
+
+    while (getline(file, a.nama_lengkap)) {
+        getline(file, a.no_telepon);
+        getline(file, a.email);
+        getline(file, a.username);
+        getline(file, a.password);
+        daftar.push_back(a);
     }
+    file.close();
+    return daftar;
+}
 
-    string line;
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string nama, telepon, email, username, password;
+// Menyimpan semua akun ke file
+void simpanAkun(const vector<Akun>& daftar) {
+    ofstream file("akun.txt");
+    for (size_t i = 0; i < daftar.size(); ++i) {
+        file << daftar[i].nama_lengkap << "\n"
+             << daftar[i].no_telepon << "\n"
+             << daftar[i].email << "\n"
+             << daftar[i].username << "\n"
+             << daftar[i].password << "\n";
+    }
+    file.close();
+}
 
-        getline(ss, nama, ';');
-        getline(ss, telepon, ';');
-        getline(ss, email, ';');
-        getline(ss, username, ';');
-        getline(ss, password, ';');
+// Registrasi akun baru
+void registrasi() {
+    system("CLS");
+    Akun baru;
+    cout << "== Registrasi Akun Baru ==\n";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Nama lengkap : "; getline(cin, baru.nama_lengkap);
+    cout << "Nomor telepon: "; getline(cin, baru.no_telepon);
+    cout << "Email        : "; getline(cin, baru.email);
+    cout << "Username     : "; getline(cin, baru.username);
+    cout << "Password     : "; getline(cin, baru.password);
 
-        if (username == inputUser && password == inputPass) {
-            cout << "\nLogin berhasil!\n";
-            cout << "Selamat datang, " << nama << "!\n";
-            cout << "Email   : " << email << "\n";
-            cout << "Telepon : " << telepon << "\n";
-            return true;
+    vector<Akun> daftar = bacaAkun();
+
+    for (size_t i = 0; i < daftar.size(); ++i) {
+        if (daftar[i].username == baru.username) {
+            cout << "Username sudah digunakan.\n";
+            system("pause");
+            return;
         }
     }
 
-    cout << "\nLogin gagal. Username atau password salah.\n";
+    daftar.push_back(baru);
+    simpanAkun(daftar);
+    cout << "Registrasi berhasil.\n";
     system("pause");
-    login();
-    return false;
 }
 
-//***Fungsi untuk menyimpan data pembeli***
-void simpanDataPembeli() {
-    string nama, nowa;
+// Login, return index akun yang login atau -1 jika gagal
+int login() {
+    system("CLS");
+    string uname, pass;
+    cout << "== Login ==\n";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Username: "; getline(cin, uname);
+    cout << "Password: "; getline(cin, pass);
 
-    cin.ignore(); // Bersihkan buffer sebelum getline
-    cout << "=========== INPUT DATA PEMBELI ===========" << endl;
-    cout << "Masukkan Nama Pembeli       : ";
-    getline(cin, nama);
+    vector<Akun> daftar = bacaAkun();
 
-    cout << "Masukkan Nomor WhatsApp     : ";
-    getline(cin, nowa);
+    for (size_t i = 0; i < daftar.size(); ++i) {
+        if (daftar[i].username == uname && daftar[i].password == pass) {
+            cout << "Login berhasil. Selamat datang, " << daftar[i].nama_lengkap << "!\n";
+            system("pause");
+    		system("CLS");
+            return (int)i;
+        }
+    }
+    cout << "Username atau password salah.\n";
+    system("pause");
+    return -1;
+}
 
-    ofstream file("datapembeliantiket.txt", ios::app);
-    if (!file.is_open()) {
-        cerr << " Gagal membuka file untuk ditulis." << endl;
+// Hapus akun
+void hapusAkun() {
+    system("CLS");
+    string uname, pass;
+    char konfirmasi;
+    cout << "== Hapus Akun ==\n";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Username: "; getline(cin, uname);
+    cout << "Password: "; getline(cin, pass);
+
+    vector<Akun> daftar = bacaAkun();
+    bool ditemukan = false;
+
+    for (size_t i = 0; i < daftar.size(); ++i) {
+        if (daftar[i].username == uname && daftar[i].password == pass) {
+            cout << "Yakin ingin menghapus akun ini? (y/n): ";
+            cin >> konfirmasi;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (konfirmasi == 'y' || konfirmasi == 'Y') {
+                daftar.erase(daftar.begin() + i);
+                simpanAkun(daftar);
+                cout << "Akun berhasil dihapus.\n";
+                system("pause");
+            } else if(konfirmasi == 'n' || konfirmasi == 'N'){
+                cout << "Penghapusan dibatalkan.\n";
+                system("pause");
+            } else {
+                cout << "Input Invalid!. Penghapusan dibatalkan.\n";
+                system("pause");
+            }
+            ditemukan = true;
+            break;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << "Akun tidak ditemukan atau password salah.\n";
+        system("pause");
+    }
+}
+
+// Menu sebelum login
+void menu_before_login() {
+    system("CLS");
+    cout << "--------------------------------\n";
+    cout << "=== MENU LOGIN===\n";
+    cout << "1. Registrasi Akun\n";
+    cout << "2. Login\n";
+    cout << "3. Hapus Akun\n";
+    cout << "0. Keluar\n";
+    cout << "Pilih: ";
+}
+
+// Menu setelah login
+void menu_after_login() {
+    cout << "--------------------------------\n";
+    cout << "=== MENU UTAMA ===\n";
+    cout << "1. Lihat Data Diri\n";
+    cout << "2. Lihat Jadwal Tayangan\n";
+    cout << "3. Logout\n";
+    cout << "0. Keluar\n";
+    cout << "Pilih: ";
+}
+
+// Tampilkan data diri username & nama lengkap user yang login
+void lihatDataDiri(const Akun& user){
+    system("CLS");
+    cout << "=== Data Diri ===\n";
+    cout << "Username   : " << user.username << "\n";
+    cout << "Nama lengkap: " << user.nama_lengkap << "\n";
+    cout << "Nomer Telepon: " << user.no_telepon << "\n";
+    cout << "Alamat Email: " << user.email << "\n";    
+}
+
+struct Film {
+    char judul[100];
+    char sinopsis[1000];
+    char waktu[30];
+    char durasi[50];
+};
+
+struct Studio {
+    char nama[20];
+    Film jadwal[10];
+    int jumlahFilm;
+};
+
+// Data studio & jadwal film (dipotong, Anda bisa gunakan data lengkap dari sebelumnya)
+Studio bioskop[7] = {
+    {"STUDIO 1", {
+        {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
+		 "12:00:00 - 14:04:00", "2 jam 4 menit"},
+        {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
+		 "14:20:00 - 15:50:00", "1 jam 30 menit"},
+        {"GUNDIK","Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.",
+		 "16:15:00 - 18:07:00", "1 jam 52 menit"},
+        {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
+		 "18:50:00 - 20:37:00", "1 jam 47 menit"},
+        {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.", 
+		"20:50:00 - 22:20:00", "1 jam 30 menit"},
+        {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
+		 "22:30:00 - 00:35:00", "2 jam 5 menit"},
+    }, 6},
+    {"STUDIO 2", {
+        {"GUNDIK","Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.",
+		 "12:05:00 - 13:57:00", "1 jam 52 menit"},
+        {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
+		 "14:20:00 - 16:24:00", 
+		 "2 jam 4 menit"},
+        {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
+		 "16:40:00 - 18:44:00", "2 jam 4 menit"},
+        {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
+		 "17:00:00 - 19:05:00", "2 jam 5 menit"},
+        {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
+		 "20:15:00 - 23:04:00", "2 jam 49 menit"},
+        {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
+		 "23:14:00 - 01:01:00", "1 jam 47 menit"},
+    }, 6},
+    {"STUDIO 3", {
+        {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
+		 "12:15:00 - 13:45:00"},
+        {"LILO & STITCH", "Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
+		 "14:30:00 - 16:18:00", "1 jam 48 menit"},
+        {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
+		 "16:25:00 - 17:55:00", "1 jam 30 menit"},
+        {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
+		 "18:00:00 - 19:30:00", "1 jam 30 menit"},
+        {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
+		 "19:45:00 - 21:15:00", "1 jam 30 menit"},
+        {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
+		 "23:14:00 - 01:01:00", "1 jam 47 menit"},
+    }, 6},
+    {"STUDIO 4", {
+        {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
+		 "12:35:00 - 14:22:00", "1 jam 47 menit"},
+        {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
+		 "14:40:00 - 16:27:00", "1 jam 47 menit"},
+        {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
+		 "16:40:00 - 18:44:00", "2 jam 4 menit"},
+        {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
+		 "19:00:00 - 21:04:00", "2 jam 4 menit"},
+        {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
+		 "21:30:00 - 23:34:00", "2 jam 4 menit"},
+        {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
+		 "23:45:00 - 01:15:00", "1 jam 30 menit"},
+    }, 6},
+    {"STUDIO 5", {
+        {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
+		 "13:00:00 - 15:49:00", "2 jam 49 menit"},
+        {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
+		 "17:10:00 - 18:40:00", "1 jam 30 menit"},
+        {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
+		 "19:00:00 - 20:30:00", "1 jam 30 menit"},
+        {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
+		 "20:45:00 - 23:34:00", "2 jam 49 menit"},
+        {"LILO & STITCH","Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
+		 "23:45:00 - 01:33:00", "1 jam 48 menit"},
+    }, 5},
+    {"STUDIO 6", {
+        {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
+		 "13:30:00 - 15:00:00", "1 jam 30 menit"},
+        {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
+		 "15:30:00 - 17:35:00", "2 jam 5 menit"},
+        {"LILO & STITCH","Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
+		 "18:00:00 - 19:48:00", "1 jam 48 menit"},
+        {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
+		 "20:30:00 - 22:35:00", "2 jam 5 menit"},
+        {"GUNDIK","Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.",
+		 "22:50:00 - 00:42:00", "1 jam 52 menit"},
+    }, 5},
+    {"STUDIO 7", {
+        {"LILO & STITCH","Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
+		 "11:00:00 - 12:48:00", "1 jam 48 menit"},
+        {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
+		 "13:10:00 - 15:15:00", "2 jam 5 menit"},
+        {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
+		 "15:20:00 - 16:50:00", "1 jam 30 menit"},
+        {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
+		 "17:40:00 - 20:29:00", "2 jam 49 menit"},
+        {"GOWOK KAMASUTRA JAWA UNCUT","Ratri (Alika Jantinia) merupakan anak dari seorang pelacur, tanpa mengetahui siapa ayahnya. Sejak bayi, ia diasuh oleh Nyai Santi (Lola Amaria), seorang gowok yang bijaksana dan disegani.",
+		 "20:50:00 - 23:02:00", "2 jam 12 menit"},
+    }, 5},
+};
+
+void jadwal() {
+    struct JadwalGabungan {
+        char judul[100];
+        char studio[20][20];
+        char waktu[20][30];
+        char durasi[20][50];  
+        int jumlahTayang;
+        char sinopsis[1000];
+    };
+
+    JadwalGabungan daftarFilm[50];
+    int jumlahJudul = 0;
+
+    // Kumpulkan semua film unik dari bioskop (asumsi bioskop sudah didefinisikan)
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < bioskop[i].jumlahFilm; j++) {
+            bool ditemukan = false;
+            for (int k = 0; k < jumlahJudul; k++) {
+                if (strcmp(daftarFilm[k].judul, bioskop[i].jadwal[j].judul) == 0) {
+                    strcpy(daftarFilm[k].studio[daftarFilm[k].jumlahTayang], bioskop[i].nama);
+                    strcpy(daftarFilm[k].waktu[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].waktu);
+                    strcpy(daftarFilm[k].durasi[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].durasi);
+                    daftarFilm[k].jumlahTayang++;
+                    ditemukan = true;
+                    break;
+                }
+            }
+
+            if (!ditemukan) {
+                strcpy(daftarFilm[jumlahJudul].judul, bioskop[i].jadwal[j].judul);
+                strcpy(daftarFilm[jumlahJudul].studio[0], bioskop[i].nama);
+                strcpy(daftarFilm[jumlahJudul].waktu[0], bioskop[i].jadwal[j].waktu);
+                strcpy(daftarFilm[jumlahJudul].durasi[0], bioskop[i].jadwal[j].durasi);
+                strcpy(daftarFilm[jumlahJudul].sinopsis, bioskop[i].jadwal[j].sinopsis);
+                daftarFilm[jumlahJudul].jumlahTayang = 1;
+                jumlahJudul++;
+            }
+        }
+    }
+
+    // Tampilkan jadwal semua film secara statis (langsung semua)
+    cout << "======= DAFTAR JADWAL FILM =======\n";
+    for (int i = 0; i < jumlahJudul; i++) {
+        cout << "\nFilm        : " << daftarFilm[i].judul << endl;
+        cout << "Sinopsis    : " << daftarFilm[i].sinopsis << endl;
+        cout << "\nJadwal Tayang:\n";
+        for (int j = 0; j < daftarFilm[i].jumlahTayang; j++) {
+            cout << daftarFilm[i].waktu[j] 
+                 << endl;
+        }
+        cout << "----------------------------------\n";
+    }
+    system("pause");
+}
+
+
+
+void pesan_tiket() {
+    	struct JadwalGabungan {
+    	char judul[100];
+    	char studio[20][20];
+    	char waktu[20][30];
+		char durasi[20][50];  // Tambahan: menyimpan durasi
+    	int jumlahTayang;
+    	char sinopsis[1000];
+	};
+
+
+    JadwalGabungan daftarFilm[50];
+    int jumlahJudul = 0;
+
+    // Kumpulkan semua film unik
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < bioskop[i].jumlahFilm; j++) {
+            bool ditemukan = false;
+            for (int k = 0; k < jumlahJudul; k++) {
+                if (strcmp(daftarFilm[k].judul, bioskop[i].jadwal[j].judul) == 0) {
+                    // Tambah jadwal ke yang sudah ada
+                    strcpy(daftarFilm[k].studio[daftarFilm[k].jumlahTayang], bioskop[i].nama);
+                    strcpy(daftarFilm[k].waktu[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].waktu);
+                    strcpy(daftarFilm[k].durasi[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].durasi);
+                    daftarFilm[k].jumlahTayang++;
+                    ditemukan = true;
+                    break;
+                }
+            }
+
+            if (!ditemukan) {
+ 					strcpy(daftarFilm[jumlahJudul].judul, bioskop[i].jadwal[j].judul);
+				    strcpy(daftarFilm[jumlahJudul].studio[0], bioskop[i].nama);
+				    strcpy(daftarFilm[jumlahJudul].waktu[0], bioskop[i].jadwal[j].waktu);
+				    strcpy(daftarFilm[jumlahJudul].durasi[0], bioskop[i].jadwal[j].durasi);
+				    strcpy(daftarFilm[jumlahJudul].sinopsis, bioskop[i].jadwal[j].sinopsis); // Salin sinopsis
+				    daftarFilm[jumlahJudul].jumlahTayang = 1;
+				    jumlahJudul++;
+			}
+
+        }
+    }
+
+    // Tampilkan daftar judul unik
+    cout << "======= PILIH FILM =======\n";
+    for (int i = 0; i < jumlahJudul; i++) {
+        cout << "[" << i + 1 << "] " << daftarFilm[i].judul << endl;
+    }
+
+    int pilihanJudul;
+    cout << "\nMasukkan nomor film: ";
+    cin >> pilihanJudul;
+    pilihanJudul--;
+
+    if (pilihanJudul < 0 || pilihanJudul >= jumlahJudul) {
+        cout << "Pilihan tidak valid!\n";
+        return;
+    }
+	
+	cout << "\nSINOPSIS: " << daftarFilm[pilihanJudul].sinopsis << "\n\n";
+
+	
+    // Tampilkan semua jam tayang untuk film tersebut
+    cout << "\n======= JAM TAYANG UNTUK '" << daftarFilm[pilihanJudul].judul << "' =======\n";
+    for (int i = 0; i < daftarFilm[pilihanJudul].jumlahTayang; i++) {
+        cout << "[" << i + 1 << "] " << daftarFilm[pilihanJudul].waktu[i] << endl;
+    }
+
+    int pilihanJam;
+    cout << "\nMasukkan nomor jam tayang: ";
+    cin >> pilihanJam;
+    pilihanJam--;
+
+    if (pilihanJam < 0 || pilihanJam >= daftarFilm[pilihanJudul].jumlahTayang) {
+        cout << "Pilihan tidak valid!\n";
         return;
     }
 
-    file << "Nama Pembeli     : " << nama << endl;
-    file << "Nomor WhatsApp   : " << nowa << endl;
-    file << "------------------------------------------\n";
+    int jumlahTiket;
+    cout << "Jumlah tiket: ";
+    cin >> jumlahTiket;
+    
+    
 
-    file.close();
-    cout << "\nData berhasil disimpan ke file.\n\n";
+    // Ringkasan tiket
+    cout << "\n=========== TIKET ANDA ===========\n";
+    cout << "Studio       : " << daftarFilm[pilihanJudul].studio[pilihanJam] << endl;
+    cout << "Film         : " << daftarFilm[pilihanJudul].judul << endl;
+    cout << "Jam Tayang   : " << daftarFilm[pilihanJudul].waktu[pilihanJam] << endl;
+    cout << "Durasi Film  : " << daftarFilm[pilihanJudul].durasi[pilihanJam] << endl;
+	cout << "Jumlah Tiket : " << jumlahTiket << endl;
+    cout << "==================================\n";
 }
 
-// Fungsi untuk menampilkan data pembeli
-void tampilkanDataPembeli() {
-    ifstream file("datapembeliantiket.txt");
-    if (!file.is_open()) {
-        cerr << "? Gagal membuka file untuk dibaca." << endl;
+void initLayout() {
+    ofstream f("layoutkursi.txt");
+    if (!f) {
+        cout << "Gagal membuat file kursi.\n";
         return;
     }
 
-    cout << "\n=========== DAFTAR DATA PEMBELI ===========" << endl;
+    for (char baris = 'A'; baris <= 'J'; ++baris) {
+        for (int kolom = 1; kolom <= 17; ++kolom) {
+            f << baris << kolom << " 0" << endl;
+        }
+    }
+
+    f.close();
+    cout << "[?] layoutkursi.txt dibuat ulang.\n";
+}
+
+void tampilLayout() {
+    ifstream f("layoutkursi.txt");
+    if (!f) {
+        cout << "Gagal membuka layoutkursi.txt\n";
+        return;
+    }
+
+    string kode;
+    int status;
+    int count = 0;
+
+    cout << "\n=== Layout Kursi ===\n";
+    while (f >> kode >> status) {
+        if (status == 0)
+            cout << "[" << kode << "] ";
+        else
+            cout << "[XX] ";
+
+        count++;
+        if (count % 17 == 0) cout << endl;
+    }
+
+    f.close();
+}
+
+void pesanKursi(string inputKode) {
+    ifstream in("layoutkursi.txt");
+    ofstream temp("temp.txt");
+
+    if (!in || !temp) {
+        cout << "Gagal membuka file.\n";
+        return;
+    }
+
+    string kode;
+    int status;
+    bool ditemukan = false;
+    bool sudahDipesan = false;
+
+    while (in >> kode >> status) {
+        if (kode == inputKode) {
+            if (status == 1) {
+                sudahDipesan = true;
+            } else {
+                temp << kode << " 1\n";  // ubah jadi dipesan
+                ditemukan = true;
+            }
+        } else {
+            temp << kode << " " << status << "\n";
+        }
+    }
+
+    in.close();
+    temp.close();
+
+    remove("layoutkursi.txt");
+    rename("temp.txt", "layoutkursi.txt");
+
+    if (sudahDipesan) {
+        cout << "? Kursi sudah dipesan!\n";
+    } else if (ditemukan) {
+        ofstream log("datapemesanankursi.txt", ios::app);
+        log << "Kursi " << inputKode << " berhasil dipesan.\n";
+        log.close();
+        cout << "? Pemesanan berhasil.\n";
+    } else {
+        cout << "? Kursi tidak ditemukan.\n";
+    }
+}
+
+void lihatPemesanan() {
+    ifstream file("datapemesanankursi.txt");
+    if (!file) {
+        cout << "Belum ada pemesanan.\n";
+        return;
+    }
+
     string line;
+    cout << "\n=== Riwayat Pemesanan ===\n";
     while (getline(file, line)) {
         cout << line << endl;
     }
+
     file.close();
-    cout << "===========================================\n\n";
 }
 
-const int JUMLAH_FILM = 9;
-
-// Struktur film
-struct Film {
-    string judul;
-    string deskripsi;
-    string genre;
-    string durasi;
-    string jadwal[5];
-    int harga; // Tambahan: harga tiket
-};
-
-// Data film
-Film daftarFilm[JUMLAH_FILM] = {
-   {
-        "KARATE KID: LEGENDS",
-        "Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
-        "Action",
-        "1 jam 30 menit",
-        {"13:30", "15:20", "17:10", "19:00", "20:50"},
-        45000
-    },
-    {
-        "GOWOK KAMASUTRA JAWA",
-        "Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
-        "Drama",
-        "2 jam 5 menit",
-        {"13:10", "15:30", "17:00", "19:00", "20:30"},
-        35000
-    },
-    {
-        "LILO & STITCH",
-        "Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
-        "Adventure, Fantasy",
-        "1 jam 48 menit",
-        {"11:00", "14:30", "15:00", "18:00", "  "},
-        40000
-    },
-    {
-        "MISSION:IMPOSSIBLE - THE FINAL RECKONING",
-        "Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
-        "Action",
-        "2 jam 49 menit",
-        {"13:00", "14:35", "17:40", "20:15", "20:45"},
-        45000
-    },
-    {
-        "FINAL DESTINATION: BLOODLINES",
-        "Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
-        "Action",
-        "1 jam 30 menit",
-        {"12:15", "14:20", "16:25", "18:00", "20:25"},
-        45000
-    },
-    {
-        "BALLERINA",
-        "Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
-        "Action, Thriller",
-        "2 jam 4 menit",
-        {"12:00", "14:20", "16:40", "19:00", "21:20"},
-        35000
-    },
-    {
-        "GOWOK KAMASUTRA JAWA UNCUT",
-        "Ratri (Alika Jantinia) merupakan anak dari seorang pelacur, tanpa mengetahui siapa ayahnya. Sejak bayi, ia diasuh oleh Nyai Santi (Lola Amaria), seorang gowok yang bijaksana dan disegani.",
-        "Drama",
-        "2 jam 12 menit",
-        {"  ", "  ", "  ", "  ", "20:50"},
-        40000
-    },
-    {
-        "WAKTU MAGHRIB 2",
-        "Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
-        "Horror",
-        "1 jam 47 menit",
-        {"12:35", "14:40", "16:45", "18:50", "20:55"},
-        40000
-    },
-    {
-        "GUNDIK",
-        "Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.",
-        "Action",
-        "1 jam 52 menit",
-        {"12:05", "  ", "16:15", "  ", "20:25"},
-        45000
-    }
-};
-
-// Fungsi untuk membersihkan input
-void clearInput() {
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
-
-// Fungsi menampilkan daftar film
-void tampilkanDaftarFilm() {
-    cout << "=== Daftar Film di Bioskop ===\n";
-    for (int i = 0; i < JUMLAH_FILM; i++) {
-        cout << "\n" << i + 1 << ". " << daftarFilm[i].judul << endl;
-        cout << "   Genre     : " << daftarFilm[i].genre << endl;
-        cout << "   Durasi    : " << daftarFilm[i].durasi << endl;
-        cout << "   Harga     : Rp" << daftarFilm[i].harga << endl;
-        cout << "   Deskripsi : " << daftarFilm[i].deskripsi << endl;
-        cout << "   Jadwal    : ";
-        for (int j = 0; j < 5; j++) {
-            if (!daftarFilm[i].jadwal[j].empty()) {
-                cout << daftarFilm[i].jadwal[j];
-                if (j < 4 && !daftarFilm[i].jadwal[j + 1].empty()) cout << " | ";
-            }
-        }
-        cout << "\n";
-    }
-}
-
-// Fungsi memilih film
-int pilihFilm() {
-    int pilihan;
-    cout << "\nPilih nomor film (1-" << JUMLAH_FILM << "): ";
-    cin >> pilihan;
-
-    if (cin.fail()) {
-        clearInput();
-        cout << "Input tidak valid.\n";
-        return -1;
-    }
-
-    if (pilihan < 1 || pilihan > JUMLAH_FILM) {
-        cout << "Pilihan tidak tersedia.\n";
-        return -1;
-    }
-
-    return pilihan - 1;
-}
-
-// Fungsi memilih jadwal
-string pilihJadwal(Film f) {
-    cout << "\nPilih jadwal tayang:\n";
-
-    int opsiValid[5];
-    int jumlahOpsi = 0;
-
-    for (int i = 0; i < 5; i++) {
-        if (!f.jadwal[i].empty()) {
-            cout << jumlahOpsi + 1 << ". " << f.jadwal[i] << endl;
-            opsiValid[jumlahOpsi++] = i;
-        }
-    }
-
-    int pilihan;
-    cout << "Pilihan: ";
-    cin >> pilihan;
-
-    if (cin.fail() || pilihan < 1 || pilihan > jumlahOpsi) {
-        clearInput();
-        cout << "Pilihan tidak valid.\n";
-        return "";
-    }
-
-    return f.jadwal[opsiValid[pilihan - 1]];
-}
-
-// Fungsi memasukkan jumlah tiket
-int masukkanJumlahTiket() {
-    int jumlah;
-    cout << "\nMasukkan jumlah tiket yang ingin dipesan: ";
-    cin >> jumlah;
-
-    if (cin.fail() || jumlah <= 0) {
-        clearInput();
-        cout << "Jumlah tiket tidak valid.\n";
-        return -1;
-    }
-
-    return jumlah;
-}
-
-const int ROWS = 17;
-const int COLS = 20;
-const int JUMLAH_STUDIO = 5;
-const int JUMLAH_KURSI = ROWS * COLS;
-
-char studio[JUMLAH_STUDIO][JUMLAH_KURSI]; // Array 1D kursi tiap studio
-
-// Inisialisasi semua kursi ke 'O'
-void inisialisasiKursi() {
-    for (int s = 0; s < JUMLAH_STUDIO; ++s) {
-        for (int k = 0; k < JUMLAH_KURSI; ++k) {
-            studio[s][k] = 'O'; // O = Kosong
-        }
-    }
-}
-
-// Menampilkan daftar studio
-void tampilkanStudio() {
-    cout << "\n=========== PILIH STUDIO ===========" << endl;
-    for (int i = 0; i < JUMLAH_STUDIO; ++i) {
-        if (i == JUMLAH_STUDIO - 1)
-            cout << i + 1 << ". Studio " << i + 1 << " (VIP)" << endl;
-        else
-            cout << i + 1 << ". Studio " << i + 1 << " (Reguler)" << endl;
-    }
-    cout << "====================================\n";
-}
-
-// Menampilkan kursi dari studio tertentu
-void tampilkanKursi(int studioIndex) {
-    cout << "\nTampilan Kursi di Studio " << studioIndex + 1;
-    if (studioIndex == JUMLAH_STUDIO - 1) cout << " (VIP)";
-    cout << endl;
-
-    // Header kolom
-    cout << "    ";
-    for (int j = 0; j < COLS; ++j) {
-        cout << setw(2) << j + 1 << " ";
-    }
-    cout << endl;
-
-    // Baris A-Q (0..16)
-    for (int i = 0; i < ROWS; ++i) {
-        cout << " " << char('A' + i) << "  ";
-        for (int j = 0; j < COLS; ++j) {
-            int idx = i * COLS + j;
-            cout << " " << studio[studioIndex][idx] << " ";
-        }
-        cout << endl;
-    }
-}
-
-//FUNGSI MEMESAN KURSI
-void pesanKursi() {
-    tampilkanStudio();
-    int pilihanStudio;
-    cout << "Pilih nomor studio (1-5): ";
-    cin >> pilihanStudio;
-
-    if (pilihanStudio < 1 || pilihanStudio > JUMLAH_STUDIO) {
-        cout << "Pilihan studio tidak valid.\n";
-        return;
-    }
-
-    int studioIndex = pilihanStudio - 1;
-    tampilkanKursi(studioIndex);
-
-    char barisChar;
-    int kolom;
-
-    cout << "\nMasukkan Baris Kursi (A-Q): ";
-    cin >> barisChar;
-    barisChar = toupper(barisChar);
-
-    cout << "Masukkan Nomor Kursi (1-20): ";
-    cin >> kolom;
-
-    int baris = barisChar - 'A';
-    kolom -= 1;
-
-    if (baris < 0 || baris >= ROWS || kolom < 0 || kolom >= COLS) {
-        cout << "Posisi kursi tidak valid.\n";
-        return;
-    }
-
-    int idx = baris * COLS + kolom;
-
-    if (studio[studioIndex][idx] == 'X') {
-        cout << "\n Kursi " << barisChar << kolom + 1 << " sudah dipesan.\n";
-    } else {
-        studio[studioIndex][idx] = 'X';
-        cout << "\n Kursi " << barisChar << kolom + 1 << " berhasil dipesan di Studio " << pilihanStudio;
-        if (studioIndex == 4) cout << " (VIP)";
-        cout << ".\n";
-    }
-    
-    ofstream file("datapemesanankursi.txt",ios::app);
-    	if(file){
-    	if(studioIndex==4) file<<" (VIP) ";
-    	file<<" - kursi "<<barisChar<<kolom+1<<" Berhasil dipesan.\n";
-    	file.close();
-    	cout<<" Data Pemesanan kursi disimpan ke 'datapemesanankursi.txt \n";
-	}else{
-		cout<<"gagal menyimpan data ke file.\n";
-	}
-
-    tampilkanKursi(studioIndex);
-}
-
-void tampildatapemesanankursi(){
-	ifstream file("datapemesanankursi.txt");
-	if(!file){
-		cout<<"Gagal membuka pemesanan kursi.\n";
-		return ;
-	}
-	
-	cout<<"\n===Pemesanan Kursi Anda===\n";
-	string line;
-	while(getline(file,line)){
-		cout<<line<<endl;
-	}
-	file.close();
-}
-
-void daftar_menu(){
-	cout <<"================ DAFTAR MENU ================" <<endl;
-		cout <<endl;
-        cout <<"	1. Tambah Pembeli Ke Antrian "<<endl;
-        cout <<" 	2. Daftar FILM dan Pemesanan Tiket "<<endl;
-        cout <<"	3. Pemilihan Kursi "<<endl;
-        cout <<"	4. Cetak Tiket "<<endl;
-        cout <<"	5. Tampilkan Data Pembeli "<<endl;
-        cout <<"	6. Keluar "<<endl;
-        cout <<"	Masukkan pilihan anda : ";
-        cout <<endl;
-    cout <<"=============================================" <<endl;
-}
-
-void tampilringkasan(){
-	ifstream file("ringkasanpesanan.txt");
-	if(!file){
-		cout<<"Gagal membuka file ringkasan.txt\n";
-		return;
-	}
-	
-	string baris;
-	cout<<"\n===Ringkasan pesanan anda===\n";
-	while(getline(file, baris)){
-		cout<<baris<<endl;
-	}
-	file.close();
-}
-
-//***MAIN FUNCTION***
 int main() {
-	int pilihan;
-    	do {
-        	menu_login();
-        	cin >> pilihan;
-        	cin.ignore(); // membersihkan newline dari input buffer
+    system("color 2");
+    ifstream cek("layoutkursi.txt");
+    if (!cek || cek.peek() == ifstream::traits_type::eof()) {
+        initLayout();
+    }
+    cek.close();
 
-        	switch (pilihan) {
-            	case 1:
-                	registrasi();
-                	break;
-            	case 2:
-                	login();
-                	pilihan = 0;
-                	break;
-            	case 0:
-                	cout << "Terima kasih!\n";
-                	return 0;
-                	break;
-            	default:
-                	cout << "Pilihan tidak valid.\n";
-        	}
-    	} while (pilihan != 0);
-    cout << "\n";
-    system("pause");
-    system("CLS");
+    int pilihan;
+//    int index_login = -1;  // -1 berarti belum login
+//    vector<Akun> daftar_akun = bacaAkun();
+//
+//    do {
+//        if (index_login == -1) {
+//            menu_before_login();
+//            cin >> pilihan;
+//            switch (pilihan) {
+//                case 1:
+//                    registrasi();
+//                    daftar_akun = bacaAkun();
+//                    break;
+//                case 2:
+//                    index_login = login();
+//                    daftar_akun = bacaAkun();
+//                    break;
+//                case 3:
+//                    hapusAkun();
+//                    daftar_akun = bacaAkun();
+//                    break;
+//                case 0:
+//                    cout << "Keluar dari program.\n";
+//                    break;
+//                default:
+//                    cout << "Pilihan tidak valid.\n";
+//                    break;
+//            }
+//        } else {
+//            menu_after_login();
+//            cin >> pilihan;
+//            switch (pilihan) {
+//                case 1:
+//                    lihatDataDiri(daftar_akun[index_login]);
+//                    break;
+//                case 2:
+//                	jadwal();
+//                	break;
+//                case 3:
+//                    cout << "Logout berhasil.\n";
+//                    index_login = -1;
+//                    break;
+//                case 0:
+//                    cout << "Keluar dari program.\n";
+//                    break;
+//                case 4:
+//                	pesan_tiket();
+//                	break;
+//                default:
+//                    cout << "Pilihan tidak valid.\n";
+//                    break;
+//            }
+//        }
+//    } while (pilihan != 0);
+string kode;
 
-    char ulang;
-    	do {
-        	int opsi;
-        	daftar_menu();
-        	cin >> opsi;
+    do {
+        cout << "\n=== MENU KURSI ===\n";
+        cout << "1. Tampilkan Layout\n";
+        cout << "2. Pesan Kursi\n";
+        cout << "3. Lihat Riwayat Pemesanan\n";
+        cout << "0. Keluar\n";
+        cout << "Pilih: ";
+        cin >> pilihan;
 
-        	switch (opsi) {
-            	case 1: {
-                	char tambahLagi;
-                	do {
-                    	simpanDataPembeli();
-                    	cout << "Tambah pembeli lagi? (y/n) : ";
-                    	cin >> tambahLagi;
-                    	cin.ignore();
-                	} while (tambahLagi == 'y' || tambahLagi == 'Y');
-                	break;
-            	}
-            	case 2: {
-            		char mengulang;
-            		do{
-            			tampilkanDaftarFilm();
-            		
-            			int indexFilm = pilihFilm();
-				    	if (indexFilm == -1) return 1;
-				
-				    	Film filmTerpilih = daftarFilm[indexFilm];
-				    	cout << "\nAnda memilih: " << filmTerpilih.judul << endl;
-				
-				    	string jadwalDipilih = pilihJadwal(filmTerpilih);
-				    	if (jadwalDipilih == "") return 1;
-				
-				    	int jumlahTiket = masukkanJumlahTiket();
-				    	if (jumlahTiket == -1) return 1;
-				
-				    	int totalHarga = jumlahTiket * filmTerpilih.harga;
-				    	
-				    	int metode;
-				    	cout<<"\n======Metode Pembayaran======\n";
-				    	cout<<endl;
-				    	cout<<"1. cash\n";
-				    	cout<<"2. Debit\n";
-				    	cout<<"3. Qris\n";
-				    	cout<<endl;
-				    	cout<<"pilih metode pembayaran(1-2) : ";cin>>metode;
-				    	cout<<endl;
-				    	cout<<"\n=============================\n";
-				    	
-				    	int uangDibayar=0, kembalian=0;
-				    	string metodeBayarStr;
-				    	
-				    	switch (metode){
-				    		case 1: 
-				    			metodeBayarStr="cash";
-				    			cout<<"Total yang harus dibayar : Rp "<<totalHarga<<endl;
-				    			cout<<"Masukkan jumlah uang anda : Rp "; cin>>uangDibayar;
-				    			while(uangDibayar<totalHarga){
-				    				cout<<"uang tidak cukup.masukkan kembali Rp ";cin>>uangDibayar;
-								}
-								kembalian=uangDibayar-totalHarga;
-								cout<<"Pembayaran cash berhasil. kembalian anda : Rp "<<kembalian<<endl;
-								break;
-							case 2:
-								metodeBayarStr="Debit";
-								cout<<"Memproses pembayaran melalui kartu debit...\n";
-								cout<<"Pembayaran Debit sebesar Rp "<<totalHarga<<" Berhasil.\n";
-								uangDibayar=totalHarga;
-								kembalian=0;
-								break;
-							case 3:
-								metodeBayarStr="Qris";
-								cout<<"Silahkan scan QR Code pada layar...\n";
-								cout<<"[QR CODE TERTAMPIL] simulasi\n ";
-								cout<<"Pembayaran QRIS sebesar Rp "<<totalHarga<<" Berhasil.\n";
-								uangDibayar=totalHarga;
-								kembalian=0;
-								break;
-							default:
-								cout<<"Metode tidak ada. Pembayaran dibatalkan. \n";
-								return 1;
-						}
-						
-						ofstream file("ringkasanpesanan.txt");
-						if(!file){
-							cout<<"gagal membuka file untuk menulis. \n";
-							return 1;
-						}
-				
-				    	file << "\n========== Ringkasan Pesanan ===========\n";
-				    	file << endl;
-				    	file << "Judul       : " << filmTerpilih.judul << endl;
-				    	file << "Genre       : " << filmTerpilih.genre << endl;
-				    	file << "Durasi      : " << filmTerpilih.durasi << endl;
-				    	file << "Jadwal      : " << jadwalDipilih << endl;
-				    	file << "Harga Tiket : Rp" << filmTerpilih.harga << endl;
-				    	file << "Jumlah      : " << jumlahTiket << " tiket\n";
-				    	file << "Total Harga : Rp" << totalHarga << endl;
-				    	file << endl;
-				    	file << "Tiket berhasil dipesan! Selamat menonton!\n";
-				    	file << "\n========================================\n";
-				    	
-				    	file.close();
-				    
-				    	cout << "Ingin memesan lagi? (y/n) : ";
-                    	cin >> mengulang;
-						}while (mengulang == 'y' || mengulang == 'Y');
-					break;
-				}
-				case 3: {
-					char ulang;
-					do{
-						inisialisasiKursi();
-			        	cout << "\n====== SISTEM PEMESANAN KURSI BIOSKOP XXI ======\n";
-			        	pesanKursi();
-			
-			        	cout << "\nPesan kursi lagi? (y/n): ";
-			        	cin >> ulang;
-					}while (ulang == 'y' || ulang == 'Y');
-					break;
-				}
-				case 4: {
-					tampilringkasan();
-					tampildatapemesanankursi();
-					break;
-				}
-            	case 6:
-                	tampilkanDataPembeli();
-                	break;
-            	case 7:
-                	cout << "Keluar dari program. Terima kasih!\n";
-                	return 0;
-            	default:
-                	cout << "Pilihan tidak tersedia.\n";
-        	}
+        switch (pilihan) {
+            case 1:
+                tampilLayout();
+                break;
+            case 2:
+            	tampilLayout();
+                cout << "\n\nMasukkan kode kursi (misal A2): ";
+                cin >> kode;
+                pesanKursi(kode);
+                break;
+            case 3:
+                lihatPemesanan();
+                break;
+            case 0:
+                cout << "Keluar.\n";
+                break;
+            default:
+                cout << "Pilihan tidak valid.\n";
+        }
+    } while (pilihan != 0);
 
-        	cout << "Kembali ke menu utama? (y/n): ";
-        	cin >> ulang;
-    	} while (ulang == 'y' || ulang == 'Y');
-
-	cout << "Keluar dari program. Terima kasih!\n";
     return 0;
 }
