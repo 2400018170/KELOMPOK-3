@@ -549,59 +549,59 @@ int main() {
     cek.close();
 
     int pilihan;
-//    int index_login = -1;  // -1 berarti belum login
-//    vector<Akun> daftar_akun = bacaAkun();
-//
-//    do {
-//        if (index_login == -1) {
-//            menu_before_login();
-//            cin >> pilihan;
-//            switch (pilihan) {
-//                case 1:
-//                    registrasi();
-//                    daftar_akun = bacaAkun();
-//                    break;
-//                case 2:
-//                    index_login = login();
-//                    daftar_akun = bacaAkun();
-//                    break;
-//                case 3:
-//                    hapusAkun();
-//                    daftar_akun = bacaAkun();
-//                    break;
-//                case 0:
-//                    cout << "Keluar dari program.\n";
-//                    break;
-//                default:
-//                    cout << "Pilihan tidak valid.\n";
-//                    break;
-//            }
-//        } else {
-//            menu_after_login();
-//            cin >> pilihan;
-//            switch (pilihan) {
-//                case 1:
-//                    lihatDataDiri(daftar_akun[index_login]);
-//                    break;
-//                case 2:
-//                	jadwal();
-//                	break;
-//                case 3:
-//                    cout << "Logout berhasil.\n";
-//                    index_login = -1;
-//                    break;
-//                case 0:
-//                    cout << "Keluar dari program.\n";
-//                    break;
-//                case 4:
-//                	pesan_tiket();
-//                	break;
-//                default:
-//                    cout << "Pilihan tidak valid.\n";
-//                    break;
-//            }
-//        }
-//    } while (pilihan != 0);
+   int index_login = -1;  // -1 berarti belum login
+   vector<Akun> daftar_akun = bacaAkun();
+
+   do {
+       if (index_login == -1) {
+           menu_before_login();
+           cin >> pilihan;
+           switch (pilihan) {
+               case 1:
+                   registrasi();
+                   daftar_akun = bacaAkun();
+                   break;
+               case 2:
+                   index_login = login();
+                   daftar_akun = bacaAkun();
+                   break;
+               case 3:
+                   hapusAkun();
+                   daftar_akun = bacaAkun();
+                   break;
+               case 0:
+                   cout << "Keluar dari program.\n";
+                   break;
+               default:
+                   cout << "Pilihan tidak valid.\n";
+                   break;
+           }
+       } else {
+           menu_after_login();
+           cin >> pilihan;
+           switch (pilihan) {
+               case 1:
+                   lihatDataDiri(daftar_akun[index_login]);
+                   break;
+               case 2:
+               	jadwal();
+               	break;
+               case 3:
+                   cout << "Logout berhasil.\n";
+                   index_login = -1;
+                   break;
+               case 0:
+                   cout << "Keluar dari program.\n";
+                   break;
+               case 4:
+               	pesan_tiket();
+               	break;
+               default:
+                   cout << "Pilihan tidak valid.\n";
+                   break;
+           }
+       }
+   } while (pilihan != 0);
 string kode;
 
     do {
