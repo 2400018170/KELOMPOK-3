@@ -181,6 +181,8 @@ struct Film {
     char sinopsis[1000];
     char waktu[30];
     char durasi[50];
+    char genre[50];
+    char harga[50];
 };
 
 struct Studio {
@@ -193,96 +195,95 @@ struct Studio {
 Studio bioskop[7] = {
     {"STUDIO 1", {
         {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
-		 "12:00:00 - 14:04:00", "2 jam 4 menit"},
+		 "12:00:00 - 14:04:00", "2 jam 4 menit", "Action, Thriller", "35000"},
         {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
-		 "14:20:00 - 15:50:00", "1 jam 30 menit"},
+		 "14:20:00 - 15:50:00", "1 jam 30 menit", "Action", "45000"},
         {"GUNDIK","Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.",
-		 "16:15:00 - 18:07:00", "1 jam 52 menit"},
+		 "16:15:00 - 18:07:00", "1 jam 52 menit", "Action", "45000"},
         {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
-		 "18:50:00 - 20:37:00", "1 jam 47 menit"},
+		 "18:50:00 - 20:37:00", "1 jam 47 menit", "Horor", "40000"},
         {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.", 
-		"20:50:00 - 22:20:00", "1 jam 30 menit"},
+		"20:50:00 - 22:20:00", "1 jam 30 menit", "Action", "45000"},
         {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
-		 "22:30:00 - 00:35:00", "2 jam 5 menit"},
+		 "22:30:00 - 00:35:00", "2 jam 5 menit", "Drama", "35000"},
     }, 6},
     {"STUDIO 2", {
         {"GUNDIK","Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.",
-		 "12:05:00 - 13:57:00", "1 jam 52 menit"},
+		 "12:05:00 - 13:57:00", "1 jam 52 menit", "Action", "45000"},
         {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
-		 "14:20:00 - 16:24:00", 
-		 "2 jam 4 menit"},
+		 "14:20:00 - 16:24:00","2 jam 4 menit", "Action, Thriller", "35000"},
         {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
-		 "16:40:00 - 18:44:00", "2 jam 4 menit"},
+		 "16:40:00 - 18:44:00", "2 jam 4 menit", "Action, Thriller", "35000"},
         {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
-		 "17:00:00 - 19:05:00", "2 jam 5 menit"},
+		 "17:00:00 - 19:05:00", "2 jam 5 menit", "Drama", "35000"},
         {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
-		 "20:15:00 - 23:04:00", "2 jam 49 menit"},
+		 "20:15:00 - 23:04:00", "2 jam 49 menit", "Action", "45000"},
         {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
-		 "23:14:00 - 01:01:00", "1 jam 47 menit"},
+		 "23:14:00 - 01:01:00", "1 jam 47 menit", "Horor", "45000"},
     }, 6},
     {"STUDIO 3", {
         {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
-		 "12:15:00 - 13:45:00"},
+		 "12:15:00 - 13:45:00", "Action", "45000"},
         {"LILO & STITCH", "Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
-		 "14:30:00 - 16:18:00", "1 jam 48 menit"},
+		 "14:30:00 - 16:18:00", "1 jam 48 menit", "Adventure, Fantasy", "40000"},
         {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
-		 "16:25:00 - 17:55:00", "1 jam 30 menit"},
+		 "16:25:00 - 17:55:00", "1 jam 30 menit", "Action", "45000"},
         {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
-		 "18:00:00 - 19:30:00", "1 jam 30 menit"},
+		 "18:00:00 - 19:30:00", "1 jam 30 menit", "Action", "45000"},
         {"FINAL DESTINATION: BLOODLINES","Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.",
-		 "19:45:00 - 21:15:00", "1 jam 30 menit"},
+		 "19:45:00 - 21:15:00", "1 jam 30 menit", "Action", "45000"},
         {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
-		 "23:14:00 - 01:01:00", "1 jam 47 menit"},
+		 "23:14:00 - 01:01:00", "1 jam 47 menit", "Horor", "40000"},
     }, 6},
     {"STUDIO 4", {
         {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
-		 "12:35:00 - 14:22:00", "1 jam 47 menit"},
+		 "12:35:00 - 14:22:00", "1 jam 47 menit", "Horor", "40000"},
         {"WAKTU MAGHRIB 2","Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.",
-		 "14:40:00 - 16:27:00", "1 jam 47 menit"},
+		 "14:40:00 - 16:27:00", "1 jam 47 menit", "Horor", "40000"},
         {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
-		 "16:40:00 - 18:44:00", "2 jam 4 menit"},
+		 "16:40:00 - 18:44:00", "2 jam 4 menit", "Action, Thriller", "35000"},
         {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
-		 "19:00:00 - 21:04:00", "2 jam 4 menit"},
+		 "19:00:00 - 21:04:00", "2 jam 4 menit", "Action, Thriller", "35000"},
         {"BALLERINA","Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.",
-		 "21:30:00 - 23:34:00", "2 jam 4 menit"},
+		 "21:30:00 - 23:34:00", "2 jam 4 menit", "Action, Thriller", "35000"},
         {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
-		 "23:45:00 - 01:15:00", "1 jam 30 menit"},
+		 "23:45:00 - 01:15:00", "1 jam 30 menit", "Action", "45000"},
     }, 6},
     {"STUDIO 5", {
         {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
-		 "13:00:00 - 15:49:00", "2 jam 49 menit"},
+		 "13:00:00 - 15:49:00", "2 jam 49 menit", "Action", "45000"},
         {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
-		 "17:10:00 - 18:40:00", "1 jam 30 menit"},
+		 "17:10:00 - 18:40:00", "1 jam 30 menit", "Action", "45000"},
         {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
-		 "19:00:00 - 20:30:00", "1 jam 30 menit"},
+		 "19:00:00 - 20:30:00", "1 jam 30 menit", "Action", "45000"},
         {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
-		 "20:45:00 - 23:34:00", "2 jam 49 menit"},
+		 "20:45:00 - 23:34:00", "2 jam 49 menit", "Action", "45000"},
         {"LILO & STITCH","Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
-		 "23:45:00 - 01:33:00", "1 jam 48 menit"},
+		 "23:45:00 - 01:33:00", "1 jam 48 menit", "Adventure, Fantasy", "40000"},
     }, 5},
     {"STUDIO 6", {
         {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
-		 "13:30:00 - 15:00:00", "1 jam 30 menit"},
+		 "13:30:00 - 15:00:00", "1 jam 30 menit", "Action", "45000"},
         {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
-		 "15:30:00 - 17:35:00", "2 jam 5 menit"},
+		 "15:30:00 - 17:35:00", "2 jam 5 menit", "Drama", "35000"},
         {"LILO & STITCH","Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
-		 "18:00:00 - 19:48:00", "1 jam 48 menit"},
+		 "18:00:00 - 19:48:00", "1 jam 48 menit", "Adventure, Fantasy", "40000"},
         {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
-		 "20:30:00 - 22:35:00", "2 jam 5 menit"},
+		 "20:30:00 - 22:35:00", "2 jam 5 menit", "Drama", "35000"},
         {"GUNDIK","Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.",
-		 "22:50:00 - 00:42:00", "1 jam 52 menit"},
+		 "22:50:00 - 00:42:00", "1 jam 52 menit", "Action", "45000"},
     }, 5},
     {"STUDIO 7", {
         {"LILO & STITCH","Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.",
-		 "11:00:00 - 12:48:00", "1 jam 48 menit"},
+		 "11:00:00 - 12:48:00", "1 jam 48 menit", "Adventure, Fantasy", "80000"},
         {"GOWOK KAMASUTRA JAWA","Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.",
-		 "13:10:00 - 15:15:00", "2 jam 5 menit"},
+		 "13:10:00 - 15:15:00", "2 jam 5 menit", "Drama", "85000"},
         {"KARATE KID: LEGENDS","Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.",
-		 "15:20:00 - 16:50:00", "1 jam 30 menit"},
+		 "15:20:00 - 16:50:00", "1 jam 30 menit", "Action", "90000"},
         {"MISSION:IMPOSSIBLE - THE FINAL RECKONING","Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.",
-		 "17:40:00 - 20:29:00", "2 jam 49 menit"},
+		 "17:40:00 - 20:29:00", "2 jam 49 menit", "Action", "100000"},
         {"GOWOK KAMASUTRA JAWA UNCUT","Ratri (Alika Jantinia) merupakan anak dari seorang pelacur, tanpa mengetahui siapa ayahnya. Sejak bayi, ia diasuh oleh Nyai Santi (Lola Amaria), seorang gowok yang bijaksana dan disegani.",
-		 "20:50:00 - 23:02:00", "2 jam 12 menit"},
+		 "20:50:00 - 23:02:00", "2 jam 12 menit", "Drama", "85000"},
     }, 5},
 };
 
@@ -291,7 +292,9 @@ void jadwal() {
         char judul[100];
         char studio[20][20];
         char waktu[20][30];
-        char durasi[20][50];  
+        char durasi[20][50];
+		char genre[50];
+    	char harga[50];  
         int jumlahTayang;
         char sinopsis[1000];
     };
@@ -308,6 +311,8 @@ void jadwal() {
                     strcpy(daftarFilm[k].studio[daftarFilm[k].jumlahTayang], bioskop[i].nama);
                     strcpy(daftarFilm[k].waktu[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].waktu);
                     strcpy(daftarFilm[k].durasi[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].durasi);
+                    strcpy(daftarFilm[k].genre, bioskop[i].jadwal[j].genre);
+                    strcpy(daftarFilm[k].harga, bioskop[i].jadwal[j].harga);
                     daftarFilm[k].jumlahTayang++;
                     ditemukan = true;
                     break;
@@ -320,6 +325,8 @@ void jadwal() {
                 strcpy(daftarFilm[jumlahJudul].waktu[0], bioskop[i].jadwal[j].waktu);
                 strcpy(daftarFilm[jumlahJudul].durasi[0], bioskop[i].jadwal[j].durasi);
                 strcpy(daftarFilm[jumlahJudul].sinopsis, bioskop[i].jadwal[j].sinopsis);
+                strcpy(daftarFilm[jumlahJudul].genre, bioskop[i].jadwal[j].genre);
+                strcpy(daftarFilm[jumlahJudul].harga, bioskop[i].jadwal[j].harga);
                 daftarFilm[jumlahJudul].jumlahTayang = 1;
                 jumlahJudul++;
             }
@@ -330,7 +337,9 @@ void jadwal() {
     cout << "======= DAFTAR JADWAL FILM =======\n";
     for (int i = 0; i < jumlahJudul; i++) {
         cout << "\nFilm        : " << daftarFilm[i].judul << endl;
-        cout << "Sinopsis    : " << daftarFilm[i].sinopsis << endl;
+        cout << "\nSinopsis    : " << daftarFilm[i].sinopsis << endl;
+        cout << "\nGenre       : " << daftarFilm[i].genre << endl;
+        cout << "\nHarga       : " << daftarFilm[i].harga << endl;
         cout << "\nJadwal Tayang:\n";
         for (int j = 0; j < daftarFilm[i].jumlahTayang; j++) {
             cout << daftarFilm[i].waktu[j] 
@@ -351,6 +360,8 @@ void pesan_tiket() {
 		char durasi[20][50];  // Tambahan: menyimpan durasi
     	int jumlahTayang;
     	char sinopsis[1000];
+    	char genre[50];
+    	char harga[50];
 	};
 
 
@@ -367,6 +378,8 @@ void pesan_tiket() {
                     strcpy(daftarFilm[k].studio[daftarFilm[k].jumlahTayang], bioskop[i].nama);
                     strcpy(daftarFilm[k].waktu[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].waktu);
                     strcpy(daftarFilm[k].durasi[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].durasi);
+                    strcpy(daftarFilm[k].studio[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].genre);
+                    strcpy(daftarFilm[k].studio[daftarFilm[k].jumlahTayang], bioskop[i].jadwal[j].harga);
                     daftarFilm[k].jumlahTayang++;
                     ditemukan = true;
                     break;
@@ -379,6 +392,8 @@ void pesan_tiket() {
 				    strcpy(daftarFilm[jumlahJudul].waktu[0], bioskop[i].jadwal[j].waktu);
 				    strcpy(daftarFilm[jumlahJudul].durasi[0], bioskop[i].jadwal[j].durasi);
 				    strcpy(daftarFilm[jumlahJudul].sinopsis, bioskop[i].jadwal[j].sinopsis); // Salin sinopsis
+				    strcpy(daftarFilm[jumlahJudul].genre, bioskop[i].jadwal[j].genre);
+				    strcpy(daftarFilm[jumlahJudul].harga, bioskop[i].jadwal[j].harga);
 				    daftarFilm[jumlahJudul].jumlahTayang = 1;
 				    jumlahJudul++;
 			}
@@ -425,14 +440,14 @@ void pesan_tiket() {
     cout << "Jumlah tiket: ";
     cin >> jumlahTiket;
     
-    
-
     // Ringkasan tiket
     cout << "\n=========== TIKET ANDA ===========\n";
     cout << "Studio       : " << daftarFilm[pilihanJudul].studio[pilihanJam] << endl;
     cout << "Film         : " << daftarFilm[pilihanJudul].judul << endl;
+    cout << "Genre        : " << daftarFilm[pilihanJudul].genre << endl;
     cout << "Jam Tayang   : " << daftarFilm[pilihanJudul].waktu[pilihanJam] << endl;
     cout << "Durasi Film  : " << daftarFilm[pilihanJudul].durasi[pilihanJam] << endl;
+    cout << "Harga        : " << daftarFilm[pilihanJudul].harga << endl;
 	cout << "Jumlah Tiket : " << jumlahTiket << endl;
     cout << "==================================\n";
 }
@@ -549,59 +564,59 @@ int main() {
     cek.close();
 
     int pilihan;
-   int index_login = -1;  // -1 berarti belum login
-   vector<Akun> daftar_akun = bacaAkun();
+    int index_login = -1;  // -1 berarti belum login
+    vector<Akun> daftar_akun = bacaAkun();
 
-   do {
-       if (index_login == -1) {
-           menu_before_login();
-           cin >> pilihan;
-           switch (pilihan) {
-               case 1:
-                   registrasi();
-                   daftar_akun = bacaAkun();
-                   break;
-               case 2:
-                   index_login = login();
-                   daftar_akun = bacaAkun();
-                   break;
-               case 3:
-                   hapusAkun();
-                   daftar_akun = bacaAkun();
-                   break;
-               case 0:
-                   cout << "Keluar dari program.\n";
-                   break;
-               default:
-                   cout << "Pilihan tidak valid.\n";
-                   break;
-           }
-       } else {
-           menu_after_login();
-           cin >> pilihan;
-           switch (pilihan) {
-               case 1:
-                   lihatDataDiri(daftar_akun[index_login]);
-                   break;
-               case 2:
-               	jadwal();
-               	break;
-               case 3:
-                   cout << "Logout berhasil.\n";
-                   index_login = -1;
-                   break;
-               case 0:
-                   cout << "Keluar dari program.\n";
-                   break;
-               case 4:
-               	pesan_tiket();
-               	break;
-               default:
-                   cout << "Pilihan tidak valid.\n";
-                   break;
-           }
-       }
-   } while (pilihan != 0);
+    do {
+        if (index_login == -1) {
+            menu_before_login();
+            cin >> pilihan;
+            switch (pilihan) {
+                case 1:
+                    registrasi();
+                    daftar_akun = bacaAkun();
+                    break;
+                case 2:
+                    index_login = login();
+                    daftar_akun = bacaAkun();
+                    break;
+                case 3:
+                    hapusAkun();
+                    daftar_akun = bacaAkun();
+                    break;
+                case 0:
+                    cout << "Keluar dari program.\n";
+                    break;
+                default:
+                    cout << "Pilihan tidak valid.\n";
+                    break;
+            }
+        } else {
+            menu_after_login();
+            cin >> pilihan;
+            switch (pilihan) {
+                case 1:
+                    lihatDataDiri(daftar_akun[index_login]);
+                    break;
+                case 2:
+                	jadwal();
+                	break;
+                case 3:
+                    cout << "Logout berhasil.\n";
+                    index_login = -1;
+                    break;
+                case 0:
+                    cout << "Keluar dari program.\n";
+                    break;
+                case 4:
+                	pesan_tiket();
+                	break;
+                default:
+                    cout << "Pilihan tidak valid.\n";
+                    break;
+            }
+        }
+    } while (pilihan != 0);
 string kode;
 
     do {
@@ -626,6 +641,9 @@ string kode;
             case 3:
                 lihatPemesanan();
                 break;
+            case 4:
+            	cout<<"program belum ada!";
+            	break;
             case 0:
                 cout << "Keluar.\n";
                 break;
