@@ -11,10 +11,12 @@
 #include <limits>
 #include <iomanip>
 #include <cctype>
-#include <limits>
-#include <cstdlib>
+#include <cstdlib> 
 #include <algorithm>
 #include <dirent.h>
+#include <ctime> 
+#include<windows.h>
+
 using namespace std;
 
 struct Akun {
@@ -64,6 +66,264 @@ struct Pemesanan {
     string metodePembayaran;
     bool sudahDibayar = false;
 };
+
+
+class searcing{
+	private:
+		struct DaftarFilm{
+			string judul;
+			int id_film;
+		    string durasi;
+		    string genre;
+		    int harga; 
+		    string sinopsis;
+		};
+		
+		DaftarFilm film[9];
+		int jum_film = 9;
+		
+		//======data film======
+		void JudulFilm(){
+			film[0].judul= "BALLERINA";
+			film[0].id_film= 1001;
+			film[0].durasi= "2 jam 4 menit";
+			film[0].genre= "Action";
+			film[0].harga= 35000;
+			film[0].sinopsis= "Eve (Ana de Armas) seorang pembunuh yang terlatih dalam tradisi organisasi Ruska Roma berangkat untuk membalas dendam setelah kematian ayahnya.";
+			
+			film[1].judul= "FINAL DESTINATION: BLOODLINES";
+			film[1].id_film= 1002;
+			film[1].durasi= "1 jam 30 menit";
+			film[1].genre= "Action";
+			film[1].harga= 35000;
+			film[1].sinopsis= "Film horor terbaru dari waralaba New Line Cinema ini mengikuti Stefanie, seorang mahasiswi yang diteror mimpi buruk berulang. Ia kembali ke kampung halamannya untuk mencari orang yang bisa mematahkan kutukan dan menyelamatkan keluarganya dari kematian tragis yang tak terelakkan.";
+			
+			film[2].judul= "GUNDIK";
+			film[2].id_film= 1003;
+			film[2].durasi= "1 jam 52 menit";
+			film[2].genre= "Action";
+			film[2].harga= 45000;
+			film[2].sinopsis= "Osman, mantan tentara, merencanakan perampokan bersama timnya, termasuk menantunya, Baim. Namun, mereka terjebak mimpi buruk saat mengetahui target mereka adalah siluman sakti penguasa Pantai Selatan.";
+			
+			film[3].judul= "WAKTU MAGHRIB 2";
+			film[3].id_film= 1004;
+			film[3].durasi= "1 jam 47 menit";
+			film[3].genre= "Horor";
+			film[3].harga= 40000;
+			film[3].sinopsis= "Dua puluh tahun setelah kejadian di Jatijajar, Jin Ummu Sibyan kembali meneror, kini di desa Giritirto. Usai keributan saat pertandingan bola, sekelompok anak menyumpahi tim lawan dalam perjalanan pulang saat maghrib. Tanpa sadar, mereka membangkitkan kembali teror lama. Kali ini, Ummu Sibyan merasuki salah satu dari mereka dan mulai memburu nyawa anak-anak dengan lebih mencekam.";
+			
+			film[4].judul= "KARATE KID: LEGENDS";
+			film[4].id_film= 1005;
+			film[4].durasi= "1 jam 30 menit";
+			film[4].genre= "Action";
+			film[4].harga= 45000;
+			film[3].sinopsis=  "Setelah pindah ke New York, Li Fong berusaha menyesuaikan diri di sekolah barunya. Saat mengikuti kompetisi karate demi membantu temannya, ia menyadari keterampilannya belum cukup. Dengan bimbingan Tn. Han dan Daniel LaRusso, Li belajar menggabungkan dua gaya bela diri untuk menghadapi pertarungan penting.";
+			
+			film[5].judul= "GOWOK KAMASUTRA JAWA";
+			film[5].id_film= 1006;
+			film[5].durasi= "2 jam 5 menit";
+			film[5].genre= "Drama";
+			film[5].harga= 35000;
+			film[5].sinopsis= "Ratri, anak seorang pelacur yang diasuh oleh Nyai Santi, tumbuh menjadi gadis cantik dan pewaris ilmu gowokan. Ia jatuh cinta pada Kamanjaya, namun dikhianati setelah mereka bercinta. Dua puluh tahun kemudian, mereka bertemu lagi saat putra Kamanjaya, Bagas, datang belajar pada Nyai Santi dan jatuh cinta pada Ratri, tanpa mengetahui masa lalu orang tua mereka. Ratri pun melihat kesempatan untuk membalas dendam.";
+			
+			film[6].judul= "MISSION:IMPOSSIBLE - THE FINAL RECKONING";
+			film[6].id_film= 1007;
+			film[6].durasi= "2 jam 49 menit";
+			film[6].genre= "Action";
+			film[6].harga= 45000;
+			film[6].sinopsis= "Melanjutkan kisah dari film sebelumnya, Mission: Impossible - Dead Reckoning Part One. Ethan Hunt (Tom Cruise) akan kembali meneruskan misi untuk menghancurkan musuh lama dan musuh baru yang lebih berbahaya.";
+			
+			film[7].judul= "LILO & STITCH";
+			film[7].id_film= 1008;
+			film[7].durasi= "1 jam 48 menit";
+			film[7].genre= "Adventure, Fantasy";
+			film[7].harga= 40000;
+			film[7].sinopsis= "Lilo (Maia Kealoha) seorang anak kecil dari Hawaii yang kesepian bertemu dengan Stitch (Chris Sanders), seorang alien yang melarikan diri dari planet asalnya. Keduanya kini berteman dan mencoba memperbaiki kondisi keluarga yang terpecah belah.";
+			
+			film[8].judul= "GOWOK KAMASUTRA JAWA UNCUT";
+			film[8].id_film= 1009;
+			film[8].durasi= "2 jam 12 menit";
+			film[8].genre= "Drama";
+			film[8].harga= 45000;
+			film[8].sinopsis= "Ratri (Alika Jantinia) merupakan anak dari seorang pelacur, tanpa mengetahui siapa ayahnya. Sejak bayi, ia diasuh oleh Nyai Santi (Lola Amaria), seorang gowok yang bijaksana dan disegani.";
+		}
+		
+	public:
+		searcing(){
+			JudulFilm();
+		}
+		
+		void inisialisasifilm(){
+			JudulFilm();
+		}
+	//==========================fitur mencari judul film==========================
+	void cari_judul_film() {
+        string cari;
+        bool ditemukan = false;
+        
+        cin.ignore();
+        cout << endl;
+        cout << (char)201;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\t   CARI FILM\t\t"<< (char)186 << endl;
+		cout << (char)200;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
+		cout << " Masukkan judul Film : ";
+		getline(cin, cari);
+
+		//Linear Search 
+        for (int i = 0; i < jum_film; i++) {
+            if (film[i].judul == cari) {
+            	system("cls");
+            	cout << (char)201;
+				for (int i=0; i<32; i++) 
+					cout << (char)205; 
+				cout << (char)187 << endl;
+				cout << (char)186 << "\t     HASIL\t \t "<< (char)186 << endl;
+				cout << (char)200;
+				for (int i=0; i<32; i++) 
+					cout << (char)205; 
+				cout << (char)188 << endl;
+                cout << " Judul Film		: "<< film[i].judul << endl;
+                cout << " ID Film		: "<< film[i].id_film << endl;
+                cout << " Durasi		: "<< film[i].durasi << endl;
+                cout << " Harga			: "<< film[i].harga << endl;
+                cout << " Sinopsis		: "<< film[i].sinopsis << endl;
+            
+            ditemukan = true;
+            break;
+			}
+        }
+
+        if (!ditemukan) {
+        	cout << (char)201;
+			for (int i=0; i<31; i++) 
+				cout << (char)205; 
+			cout << (char)187 << endl;
+			cout << (char)186 << "      Film tidak ditemukan\t"<< (char)186 << endl;
+			cout << (char)200;
+			for (int i=0; i<31; i++) 
+				cout << (char)205; 
+			cout << (char)188 << endl;
+        }
+    }
+    
+//fitur untuk mencari judul menggunakan id
+
+	void cari_film_id() {
+	    int cari;
+	    bool ditemukan = false;
+	
+	    cin.ignore();
+	    cout << (char)201;
+			for (int i=0; i<39; i++) 
+				cout << (char)205; 
+			cout << (char)187 << endl;
+			cout << (char)186 << "      Mencari Judul Film dengan ID\t"<< (char)186 << endl;
+			cout << (char)200;
+			for (int i=0; i<39; i++) 
+				cout << (char)205; 
+			cout << (char)188 << endl;
+	    cout << " Masukkan ID Film : "; 
+	    cin >> cari;
+	
+	    // Binary search
+	    int kiri = 0, kanan = jum_film - 1;
+	
+	    while (kiri <= kanan) {
+	        int tengah = (kiri + kanan) / 2;
+	
+	        if (film[tengah].id_film == cari) {
+	        	system("cls");
+            	cout << (char)201;
+				for (int i=0; i<32; i++) 
+					cout << (char)205; 
+				cout << (char)187 << endl;
+				cout << (char)186 << "\t     HASIL\t \t "<< (char)186 << endl;
+				cout << (char)200;
+				for (int i=0; i<32; i++) 
+					cout << (char)205; 
+				cout << (char)188 << endl;
+	            cout << " ID Film       : " << film[tengah].id_film << endl;
+	            cout << " Judul Film    : " << film[tengah].judul << endl;
+	            cout << " Durasi        : " << film[tengah].durasi << endl;
+	            cout << " Genre         : " << film[tengah].genre << endl;
+	            cout << " Harga         : " << film[tengah].harga << endl;
+	            cout << " Sinopsis      : " << film[tengah].sinopsis << endl;
+	
+	            ditemukan = true;
+	            break;
+	
+	        } else if (film[tengah].id_film < cari) {
+	            kiri = tengah + 1;
+	
+	        } else {
+	            kanan = tengah - 1;
+	        }
+	    }
+	
+	    if (!ditemukan) {
+	        cout << (char)201;
+			for (int i=0; i<31; i++) 
+				cout << (char)205; 
+			cout << (char)187 << endl;
+			cout << (char)186 << "      Film tidak ditemukan\t"<< (char)186 << endl;
+			cout << (char)200;
+			for (int i=0; i<31; i++) 
+				cout << (char)205; 
+			cout << (char)188 << endl;
+	    }
+	}
+//-------------------------PEMANGGILAN 2 FITUR----------------------
+	void pencarian(){
+		system("cls");
+		int pilih;
+		cout << (char)201;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\tFITUR PENCARIAN\t\t"<< (char)186 << endl;
+		cout << (char)204;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)185 << endl;
+		cout << (char)186 << "[1] Mencari Dengan Nama\t" << (char)186 <<endl;
+		cout << (char)186 << "[2] Mencari Dengan ID\t\t" << (char)186 <<endl;
+		cout << (char)200;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
+		cout << " Pilihan anda : ";
+		cin  >> pilih;
+		
+		switch (pilih) {
+			case 1:{
+				cari_judul_film();
+				system("pause");
+				system("cls");
+				break;
+			}
+			case 2:{
+				cari_film_id();
+				system("pause");
+				system("cls");
+				break;
+			}
+		}
+	}
+
+};
+
+//-----------untuk mengurutkan waktu tayang-------------
+int waktuKeMenit(const char* waktu) {
+    int jam, menit, detik;
+    sscanf(waktu, "%d:%d:%d", &jam, &menit, &detik); //sscanf untuk membaca dan mengekstrak data dari sebuah string berdasarkan format yang sudah tersedia
+    return jam * 60 + menit;
+}
 
 vector<Akun> bacaAkun() {
     vector<Akun> daftar;
@@ -124,7 +384,15 @@ void simpanAkunadmin(const vector<Akunadmin>& daftar) {
 void registrasi() {
     system("CLS");
     Akun baru;
-    cout << "============ Registrasi Akun Baru ============\n\n";
+    cout << (char)201;
+		for (int i=0; i<32; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\tREGISTRASI AKUN BARU\t "<< (char)186 << endl;
+		cout << (char)200;
+		for (int i=0; i<32; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Nama lengkap : "; getline(cin, baru.nama_lengkap);
     cout << "Nomor telepon: "; getline(cin, baru.no_telepon);
@@ -153,7 +421,15 @@ enum JenisLogin { TIDAK_LOGIN = -1, LOGIN_USER = 0, LOGIN_ADMIN = 1 };
 int login(JenisLogin &tipeLogin) {
     system("CLS");
     string uname, pass;
-    cout << "============ Login ============\n\n";
+    cout << (char)201;
+		for (int i=0; i<32; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\t     LOGIN\t \t "<< (char)186 << endl;
+		cout << (char)200;
+		for (int i=0; i<32; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Username: "; getline(cin, uname);
     cout << "Password: "; getline(cin, pass);
@@ -189,10 +465,18 @@ void hapusAkun() {
     system("CLS");
     string uname, pass;
     char konfirmasi;
-    cout << "============ Hapus Akun ============\n\n";
+    cout << (char)201;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\t   HAPUS AKUN\t\t"<< (char)186 << endl;
+		cout << (char)200;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << "Username: "; getline(cin, uname);
-    cout << "Password: "; getline(cin, pass);
+    cout << " Username: "; getline(cin, uname);
+    cout << " Password: "; getline(cin, pass);
 
     vector<Akun> daftar = bacaAkun();
     bool ditemukan = false;
@@ -227,45 +511,93 @@ void hapusAkun() {
 
 void menu_before_login() {
     system("CLS");
-    cout << "============ MENU LOGIN ============\n\n";
-    cout << "[1] Registrasi Akun\n";
-    cout << "[2] Login\n";
-    cout << "[3] Hapus Akun\n";
-    cout << "[0] Keluar\n";
-    cout << "\nPilih (1-3) : ";
+    cout << (char)201;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\t   MENU LOGIN\t\t"<< (char)186 << endl;
+		cout << (char)204;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)185 << endl;
+    cout << (char)186 << "[1] Registrasi Akun\t\t" << (char)186 << endl;
+    cout << (char)186 << "[2] Login\t\t\t" << (char)186 << endl;
+    cout << (char)186 << "[3] Hapus Akun\t\t\t" << (char)186 << endl;
+    cout << (char)186 << "[0] Keluar\t\t\t" << (char)186 << endl;
+    cout << (char)200;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
+    cout << " Pilih (1-3)/(0 keluar) : ";
 }
 
+//----------------MENU UNTUK PELANGGAN----------------
 void menu_after_login() {
     cout << "\n";
-    cout << "============ MENU UTAMA ============\n\n";
-    cout << "[1] Lihat Data Diri\n";
-    cout << "[2] Lihat Jadwal Tayangan\n";
-    cout << "[3] Pesan Tiket\n";
-    cout << "[4] Buka File Pesanan\n";
-    cout << "[5] Edit Tiket\n";
-    cout << "[6] Edit Pesan Kursi\n";
-	cout << "[7] Logout\n";
-	cout << "[0] Keluar\n";
-    cout << "\nPilih (1-7) : ";
+    cout << (char)201;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\t   MENU UTAMA\t\t"<< (char)186 << endl;
+		cout << (char)204;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)185 << endl;
+    cout << (char)186 << "[1] Lihat Data Diri\t\t" << (char)186 << endl;
+    cout << (char)186 << "[2] Lihat  Tayangan\t\t" << (char)186 << endl;
+    cout << (char)186 << "[3] Fitur Pencarian\t\t" << (char)186 << endl;
+    cout << (char)186 << "[4] Pesan Tiket\t\t" << (char)186 << endl;
+    cout << (char)186 << "[5] Buka File Pesanan\t\t" << (char)186 << endl;
+    cout << (char)186 << "[6] Edit Tiket\t\t\t" << (char)186 << endl;
+    cout << (char)186 << "[7] Edit Pesan Kursi\t\t" << (char)186 << endl;
+	cout << (char)186 << "[8] Logout\t\t\t" << (char)186 << endl;
+	cout << (char)186 << "[0] Keluar\t\t\t" << (char)186 << endl;
+	cout << (char)200;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
+    cout << " Pilih (1-8)/(0 keluar) : ";
 }
 
+//-----------------MENU UNTUK ADMIN--------------------
 void menu_admin() {
 	system("CLS");
-    cout << "============ MENU ADMIN ============\n\n";
-    cout << "[1] Tampilkan Daftar Film\n";
-    cout << "[2] Pesan Tiket" << endl;
-    cout << "[3] Buka File Pesanan" << endl;
-	cout << "[4] Edit Pesanan" << endl;
-	cout << "[5] Edit Pesan Kursi" << endl;
-	cout << "[6] Statistik Kursi Terisi\n";
-	cout << "[7] Logout" << endl;
-    cout << "[0] Keluar" << endl;
-    cout << "\nPilih (1-7) : ";
+	cout << (char)201;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\t   MENU ADMIN\t\t"<< (char)186 << endl;
+		cout << (char)204;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)185 << endl;
+    cout << (char)186 << "[1] Tampilkan Daftar Film\t" << (char)186 << endl;
+    cout << (char)186 << "[2] Fitur Pencarian\t\t" << (char)186 << endl;
+    cout << (char)186 << "[3] Pesan Tiket\t\t" << (char)186 << endl;
+    cout << (char)186 << "[4] Buka File Pesanan\t\t" << (char)186 << endl;
+	cout << (char)186 << "[5] Edit Pesanan\t\t" << (char)186 << endl;
+	cout << (char)186 << "[6] Edit Pesan Kursi\t\t" << (char)186 << endl;
+	cout << (char)186 << "[7] Statistik Kursi Terisi\t" << (char)186 << endl;
+	cout << (char)186 << "[8] Logout\t\t\t" << (char)186 << endl;
+    cout << (char)186 << "[0] Keluar\t\t\t" << (char)186 << endl;
+    cout << (char)200;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
+    cout << " Pilih (1-8)/(0 keluar) : ";
 }
 
 void lihatDataDiri(const Akun& user){
     system("CLS");
-    cout << "============ Data Diri ============\n\n";
+    cout << (char)201;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)187 << endl;
+		cout << (char)186 << "\t   DATA DIRI\t\t"<< (char)186 << endl;
+		cout << (char)200;
+		for (int i=0; i<31; i++) 
+			cout << (char)205; 
+		cout << (char)188 << endl;
     cout << "Username      : " << user.username << "\n";
     cout << "Nama lengkap  : " << user.nama_lengkap << "\n";
     cout << "Nomer Telepon : " << user.no_telepon << "\n";
@@ -275,12 +607,15 @@ void lihatDataDiri(const Akun& user){
 
 void tampilkan_logo_bioskop(){
 	system("CLS");
-	cout << "\t  ____ ___ _    _ _____ __  __  _____   __    ____    __ ___    ______ __  __ ____ ___ ____  _____\n";
-	cout << "\t / ___|_ _| \\  | | ____|  \\/  |/  __ \\  \\ \\  / /\\ \\  / /|_ _|  |  ____|  \\/  |    \\_ _|    \\| ____|\n";
-	cout << "\t| |    | ||  \\ | | |__ | |\\/| ||  || |   \\ \\/ /  \\ \\/ /  | |   | |__  | |\\/| | |> || || |> || |__\n";
-	cout << "\t| |    | ||   \\| |  __|| |  | ||  __ |    >  <    >  <   | |   |  __| | |  | |  __/| ||   _/|  __|\n";
-	cout << "\t| |___ | || |\\   | |___| |  | || / | |   / /\\ \\  / /\\ \\  | |   | |___ | |  | | |   | || | \\ | |___\n";
-	cout << "\t \\____|___|_| \\__|_____|_|  |_||_| |_|  /_/  \\_\\/_/  \\_\\|___|  |______|_|  |_|_|  |___|_|\\_\\|_____|\n";
+	cout << (char)176 << (char)176 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << (char)176 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << (char)176 << (char)176 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)176 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << " " << (char)219 << (char)219 << (char)187 << (char)176 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)187 << (char)176 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)187 << " " << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << (char)176 << (char)176 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 /*|*/ << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << endl;
+	cout << (char)176 << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << (char)219 << (char)219 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)219 << (char)219 << (char)187 << " " << (char)200 << (char)219 << (char)219 << (char)219 << (char)219 << (char)201 << (char)188 /*|*/ << (char)200 << (char)219 << (char)219 << (char)219 << (char)219 << (char)201 << (char)188 /*|*/ << (char)219 << (char)219 << (char)186 << " " << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << (char)219 << (char)219 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)188 << (char)176 << endl;
+	cout << (char)176 << (char)219 << (char)219 << (char)186 << (char)176 << (char)176 << (char)176 << (char)176 << (char)176 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)219 << (char)219 << (char)187 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)201 << (char)219 << (char)219 << (char)219 << (char)219 << (char)201 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)186 << (char)176 << (char)176 << (char)176 << (char)219 << (char)219 << (char)186 << " " << (char)176 << (char)200 << (char)219 << (char)219 << (char)201 << (char)188 << (char)176 /*|*/ << (char)176 << (char)200 << (char)219 << (char)219 << (char)201 << (char)188 << (char)176 /*|*/ << (char)219 << (char)219 << (char)186 << " " << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)201 << (char)219 << (char)219 << (char)219 << (char)219 << (char)201 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)186 << (char)176 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)186 << (char)176 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << endl;
+	cout << (char)176 << (char)219 << (char)219 << (char)186 << (char)176 << (char)176 << (char)176 << (char)176 << (char)176 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)186 << (char)200 << (char)219 << (char)219 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)219 << (char)219 << (char)186 << (char)200 << (char)219 << (char)219 << (char)201 << (char)188 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)186 << " " << (char)176 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 /*|*/ << (char)176 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 /*|*/ << (char)219 << (char)219 << (char)186 << " " << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)219 << (char)219 << (char)186 << (char)200 << (char)219 << (char)219 << (char)201 << (char)188 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)201 << (char)188 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)201 << (char)188 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)188 << (char)176 << endl;
+	cout << (char)176 << (char)200 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)186 << (char)176 << (char)200 << (char)219 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)186 << (char)176 << (char)200 << (char)205 << (char)188 << (char)176 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)205 << (char)219 << (char)219 << (char)186 << " " << (char)219 << (char)219 << (char)201 << (char)205 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)186 << " " << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)186 << (char)176 << (char)200 << (char)205 << (char)188 << (char)176 << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)205 << (char)188 << (char)176 /*|*/ << (char)219 << (char)219 << (char)186 /*|*/ << (char)219 << (char)219 << (char)201 << (char)205 << (char)219 << (char)219 << (char)187 /*|*/ << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)219 << (char)187 << (char)176 << endl;
+	cout << (char)176 << (char)176 << (char)200 << (char)205 << (char)205 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << (char)176 << (char)176 << (char)200 << (char)205 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)205 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << (char)176 << (char)176 << (char)176 << (char)176 << (char)176 << (char)200 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << (char)176 << (char)176 << (char)176 << (char)200 << (char)205 << (char)188 << " " << (char)200 << (char)205 << (char)188 << (char)176 << (char)200 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << (char)176 << (char)200 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << " " << (char)200 << (char)205 << (char)205 << (char)205 << (char)205 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << (char)176 << (char)176 << (char)176 << (char)176 << (char)176 << (char)200 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << (char)176 << (char)176 << (char)176 << (char)176 /*|*/ << (char)200 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)188 << (char)176 << (char)200 << (char)205 << (char)188 /*|*/ << (char)200 << (char)205 << (char)205 << (char)205 << (char)205 << (char)205 << (char)188 << (char)176 << endl;
+	for (int i=0; i<110; i++)
+	cout << (char)205;
+	cout << endl;
 }
 
 void tampilfilm(){
@@ -355,7 +690,6 @@ void tampilfilm(){
 	cout << " "; system("pause");
 	
 }
-
 
 Studio bioskop[7] = {
     {"STUDIO 1", {
@@ -495,6 +829,38 @@ void jadwal() {
             }
         }
     }
+    
+     // SORTIR WAKTU TAYANG SETIAP FILM MENGGUNAKAN SELECTION SORT
+    for (int i = 0; i < jumlahJudul; i++) {
+        for (int j = 0; j < daftarFilm[i].jumlahTayang - 1; j++) {
+            int minIdx = j;
+            char waktu1[10], waktu2[10];
+
+            for (int k = j + 1; k < daftarFilm[i].jumlahTayang; k++) {
+                sscanf(daftarFilm[i].waktu[minIdx], "%[^ ]", waktu1);
+                sscanf(daftarFilm[i].waktu[k], "%[^ ]", waktu2);
+
+                if (waktuKeMenit(waktu2) < waktuKeMenit(waktu1)) {
+                    minIdx = k;
+                }
+            }
+
+            if (minIdx != j) {
+                char tempW[30], tempD[50], tempS[20];
+                strcpy(tempW, daftarFilm[i].waktu[j]);
+                strcpy(daftarFilm[i].waktu[j], daftarFilm[i].waktu[minIdx]);
+                strcpy(daftarFilm[i].waktu[minIdx], tempW);
+
+                strcpy(tempD, daftarFilm[i].durasi[j]);
+                strcpy(daftarFilm[i].durasi[j], daftarFilm[i].durasi[minIdx]);
+                strcpy(daftarFilm[i].durasi[minIdx], tempD);
+
+                strcpy(tempS, daftarFilm[i].studio[j]);
+                strcpy(daftarFilm[i].studio[j], daftarFilm[i].studio[minIdx]);
+                strcpy(daftarFilm[i].studio[minIdx], tempS);
+            }
+        }
+    }
 
 	system("cls");
     cout<<"============================================================================================================================================================\n";
@@ -539,7 +905,7 @@ void initLayout() {
     }
 
     f.close();
-    cout << "[?] layoutkursi.txt dibuat ulang.\n";
+    cout << " layoutkursi.txt dibuat ulang.\n";
 }
 
 void tampilLayoutKursi(string fileKursi) {
@@ -701,14 +1067,14 @@ void pesanKursi(string inputKode) {
     rename("temp.txt", "layoutkursi.txt");
 
     if (sudahDipesan) {
-        cout << "? Kursi sudah dipesan!\n";
+        cout << " Kursi sudah dipesan!\n";
     } else if (ditemukan) {
         ofstream log("datapemesanankursi.txt", ios::app);
         log << "Kursi " << inputKode << " berhasil dipesan.\n";
         log.close();
-        cout << "? Pemesanan berhasil.\n";
+        cout << " Pemesanan berhasil.\n";
     } else {
-        cout << "? Kursi tidak ditemukan.\n";
+        cout << " Kursi tidak ditemukan.\n";
     }
     system("pause");
 }
@@ -747,44 +1113,45 @@ void batalkanKursi(string kodeKursi) {
 }
 
 void pesan_tiket() {
-	system("cls");
-    	struct JadwalGabungan {
-    	char judul[100];
-    	char studio[20][20];
-    	char waktu[20][30];
-		char durasi[20][50];
-    	int jumlahTayang;
-    	char sinopsis[1000];
-    	char genre[50];
-    	int harga;
-	};
+    system("cls");
+
+    struct JadwalGabungan {
+        char judul[100];
+        char studio[20][20];
+        char waktu[20][30];
+        char durasi[20][50];
+        int jumlahTayang;
+        char sinopsis[1000];
+        char genre[50];
+        int harga;
+    };
 
     JadwalGabungan daftarFilm[50];
     int jumlahJudul = 0;
-    
     int jenisTiket;
-	cout << "\n============ Pilih Jenis Tiket ============\n";
-	cout << "[1] Reguler (STUDIO 1 - 6)\n";
-	cout << "[2] Premier (STUDIO 7 saja)\n";
-	cout << "\nPilihan Anda (1-2) : ";
-	cin >> jenisTiket;
-	
-	if (jenisTiket != 1 && jenisTiket != 2) {
-	    cout << "Jenis tiket tidak valid.\n";
-	    return;
-	}
-	
-	 if (jenisTiket == 2) {
+    string kodeKupon;
+    int diskonKupon = 0;
+    bool KuponValid = false;
+
+    int kodeUnik = rand() % 1000000;
+
+    cout << "\n============ Pilih Jenis Tiket ============\n";
+    cout << "[1] Reguler (STUDIO 1 - 6)\n";
+    cout << "[2] Premier (STUDIO 7 saja)\n";
+    cout << "\nPilihan Anda (1-2) : ";
+    cin >> jenisTiket;
+
+    if (jenisTiket != 1 && jenisTiket != 2) {
+        cout << "Jenis tiket tidak valid.\n";
+        return;
+    }
+
+    if (jenisTiket == 2) {
         cout << "Anda memilih tiket Premier. Hanya film di STUDIO 7 yang tersedia.\n";
     }
-	
-	
 
-    int startStudio = 0, endStudio = 7;
-    if (jenisTiket == 2) {
-        startStudio = 6;
-        endStudio = 7;
-    }
+    int startStudio = (jenisTiket == 2) ? 6 : 0;
+    int endStudio = 7;
 
     for (int i = startStudio; i < endStudio; i++) {
         for (int j = 0; j < bioskop[i].jumlahFilm; j++) {
@@ -799,7 +1166,6 @@ void pesan_tiket() {
                     break;
                 }
             }
-
             if (!ditemukan) {
                 strcpy(daftarFilm[jumlahJudul].judul, bioskop[i].jadwal[j].judul);
                 strcpy(daftarFilm[jumlahJudul].studio[0], bioskop[i].nama);
@@ -820,7 +1186,7 @@ void pesan_tiket() {
     }
 
     int pilihanJudul;
-    cout << "\nMasukkan nomor film: ";
+    cout << "\nMasukkan nomor film : ";
     cin >> pilihanJudul;
     pilihanJudul--;
 
@@ -828,13 +1194,9 @@ void pesan_tiket() {
         cout << "Pilihan tidak valid!\n";
         return;
     }
-	
-	cout << "\nSINOPSIS: " << daftarFilm[pilihanJudul].sinopsis << "\n\n";
 
-	
-    vector<Film*> pilihanFilm;
-	vector<int> asalStudio;
-	
+    cout << "\nSINOPSIS : " << daftarFilm[pilihanJudul].sinopsis << "\n\n";
+
     cout << "============ JAM TAYANG UNTUK '" << daftarFilm[pilihanJudul].judul << "' ============\n";
     for (int i = 0; i < daftarFilm[pilihanJudul].jumlahTayang; i++) {
         cout << "[" << i + 1 << "] " << daftarFilm[pilihanJudul].waktu[i]
@@ -850,7 +1212,7 @@ void pesan_tiket() {
         cout << "Pilihan tidak valid!\n";
         return;
     }
-    
+
     int jumlahTiket;
     cout << "Jumlah tiket: ";
     cin >> jumlahTiket;
@@ -858,129 +1220,155 @@ void pesan_tiket() {
         cout << "Jumlah tiket tidak valid.\n";
         return;
     }
-	
-	string studio = daftarFilm[pilihanJudul].studio[pilihanJam];
-	bool isStudio7 = (studio.find("STUDIO 7") != string::npos);
-	
-	if ((jenisTiket == 1 && isStudio7) || (jenisTiket == 2 && !isStudio7)) {
-	    cout << "Studio tidak sesuai dengan jenis tiket yang dipilih.\n";
-	    return;
-	}
-	
-	int hargaAsli = daftarFilm[pilihanJudul].harga;
-	int hargaFinal = hargaAsli + (jenisTiket == 2 ? 40000 : 0);
+
+    cin.ignore();
+    cout << "Masukkan kode kupon (jika ada): ";
+    getline(cin, kodeKupon);
+
+    if (kodeKupon == "123EMPIRE") {
+        diskonKupon = 10;
+        KuponValid = true;
+    } else if (kodeKupon == "321EMPIRE") {
+        diskonKupon = 15;
+        KuponValid = true;
+    } else if (kodeKupon == "213EMPIRE") {
+        diskonKupon = 20;
+        KuponValid = true;
+    } else if (!kodeKupon.empty()) {
+        cout << "Kupon tidak valid. Tidak ada diskon diterapkan.\n";
+    }
+
+    string studio = daftarFilm[pilihanJudul].studio[pilihanJam];
+    bool Studio7 = (studio.find("STUDIO 7") != string::npos);
+    if ((jenisTiket == 1 && Studio7) || (jenisTiket == 2 && !Studio7)) {
+        cout << "Studio tidak sesuai dengan jenis tiket yang dipilih.\n";
+        return;
+    }
+
+    int hargaAsli = daftarFilm[pilihanJudul].harga;
+    int hargaFinal = hargaAsli + (jenisTiket == 2 ? 40000 : 0);
     int total = hargaFinal * jumlahTiket;
-    
+
+    int totalDiskon = 0;
+    if (KuponValid) {
+        int diskon = total * diskonKupon / 100;
+        cout << "Diskon dari kupon (" << kodeKupon << "): Rp" << diskon << endl;
+        totalDiskon += diskon;
+    }
+
+    total -= totalDiskon;
+
+    // Ambil waktu transaksi
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    char waktuTransaksi[100];
+    strftime(waktuTransaksi, sizeof(waktuTransaksi), "%d-%m-%Y %H:%M:%S", ltm);
+
     cout << "\n============ TIKET ANDA ============\n";
-    cout << "Jenis Tiket  : " << (jenisTiket == 1 ? "Reguler" : "Premier") << endl;
-    cout << "Studio       : " << daftarFilm[pilihanJudul].studio[pilihanJam] << endl;
-    cout << "Film         : " << daftarFilm[pilihanJudul].judul << endl;
-    cout << "Genre        : " << daftarFilm[pilihanJudul].genre << endl;
-    cout << "Jam Tayang   : " << daftarFilm[pilihanJudul].waktu[pilihanJam] << endl;
-    cout << "Durasi Film  : " << daftarFilm[pilihanJudul].durasi[pilihanJam] << endl;
-    cout << "Harga        : " << daftarFilm[pilihanJudul].harga << endl;
-	cout << "Jumlah Tiket : " << jumlahTiket << endl;
-	
-	Pemesanan pesanan;
-	
-	vector<string> kursiDipilih;
-	
-	cout << "\n============ PILIH KURSI ============\n";
-
-	string judul = daftarFilm[pilihanJudul].judul;
-	string waktu = daftarFilm[pilihanJudul].waktu[pilihanJam];
-
-	string fileKursi = "kursi_" + studio + "_" + judul + "_" + waktu + ".txt";
-	replace(fileKursi.begin(), fileKursi.end(), ' ', '_');
-	replace(fileKursi.begin(), fileKursi.end(), ':', '_');
-	replace(fileKursi.begin(), fileKursi.end(), '-', '_');
-
-	cout << "\nLayout Kursi untuk Sesi Ini:\n";
-	tampilLayoutKursi(fileKursi);
-	cin.ignore();
-
-	
-	for (int i = 0; i < jumlahTiket; ++i) {
-    	string kodeKursi;
-    	cout << "\nMasukkan kode kursi ke-" << i + 1 << ": ";
-    	getline(cin, kodeKursi);
-
-    	if (!pesanKursiDi(fileKursi, kodeKursi)) {
-        	cout << "? Kursi sudah dipesan atau tidak valid. Ulangi!\n";
-        	--i;
-    	} else {
-        	kursiDipilih.push_back(kodeKursi);
-        	pesanan.kursi.push_back(kodeKursi);
-    	}
-	}
-
-	
-	cout << "TOTAL        : Rp" << total << endl;
+    cout << "Kode Unik Pemesanan : EMPIRE-" << setw(6) << setfill('0') << kodeUnik << endl;
+    cout << "Waktu Transaksi     : " << waktuTransaksi << endl;
+    cout << "Jenis Tiket         : " << (jenisTiket == 1 ? "Reguler" : "Premier") << endl;
+    cout << "Studio              : " << studio << endl;
+    cout << "Film                : " << daftarFilm[pilihanJudul].judul << endl;
+    cout << "Genre               : " << daftarFilm[pilihanJudul].genre << endl;
+    cout << "Jam Tayang          : " << daftarFilm[pilihanJudul].waktu[pilihanJam] << endl;
+    cout << "Durasi Film         : " << daftarFilm[pilihanJudul].durasi[pilihanJam] << endl;
+    cout << "Harga               : " << hargaFinal << endl;
+    cout << "Jumlah Tiket        : " << jumlahTiket << endl;
+    if (KuponValid) cout << "Kupon Digunakan     : " << kodeKupon << " (" << diskonKupon << "%)\n";
+    cout << "TOTAL               : Rp" << total << endl;
     cout << "==================================\n";
-    
-	pesanan.namaPemesan = "User";
-	pesanan.studio = studio;
-	pesanan.judulFilm = daftarFilm[pilihanJudul].judul;
-	pesanan.waktu = daftarFilm[pilihanJudul].waktu[pilihanJam];
-	pesanan.durasi = daftarFilm[pilihanJudul].durasi[pilihanJam];
-	pesanan.genre = daftarFilm[pilihanJudul].genre;
-	pesanan.jenisTiket = (jenisTiket == 1) ? "Reguler" : "Premier";
-	pesanan.harga = hargaFinal;
-	pesanan.jumlahTiket = jumlahTiket;
-	pesanan.totalHarga = total;
-	
-	daftarPemesanan.push_back(pesanan);
-	
-	ofstream file("daftar_pesanan.txt", ios::app);
-	if (file.is_open()) {
-		file << "\n============ PESANAN BARU MASUK ============" << endl;
-	    file << pesanan.namaPemesan << endl << endl ;
-		file << "Studio				: " << pesanan.studio << endl;
-		file << "Judul Film			: " << pesanan.judulFilm << endl;
-	    file << "Waktu				: " << pesanan.waktu << endl;
-		file << "Durasi				: " << pesanan.durasi << endl;
-		file << "Genre				: " << pesanan.genre << endl;
-	    file << "Jenis Tiket		: " << pesanan.jenisTiket << endl;
-		file << "Harga				: " << pesanan.harga << endl;
-		file << "Jumlah Tiket		: " << pesanan.jumlahTiket << endl;
-		file << "Kursi yang dipilih	: ";
-		for (int i = 0; i < pesanan.kursi.size(); ++i) {
-		    file << pesanan.kursi[i] << " ";
+
+    Pemesanan pesanan;
+    vector<string> kursiDipilih;
+
+    string judul = daftarFilm[pilihanJudul].judul;
+    string waktu = daftarFilm[pilihanJudul].waktu[pilihanJam];
+    string fileKursi = "kursi_" + studio + "_" + judul + "_" + waktu + ".txt";
+    replace(fileKursi.begin(), fileKursi.end(), ' ', '_');
+    replace(fileKursi.begin(), fileKursi.end(), ':', '_');
+    replace(fileKursi.begin(), fileKursi.end(), '-', '_');
+
+    cout << "\nLayout Kursi untuk Sesi Ini:\n";
+    tampilLayoutKursi(fileKursi);
+
+    for (int i = 0; i < jumlahTiket; ++i) {
+        string kodeKursi;
+        cout << "\nMasukkan kode kursi ke-" << i + 1 << ": ";
+        getline(cin, kodeKursi);
+        if (!pesanKursiDi(fileKursi, kodeKursi)) {
+            cout << " Kursi sudah dipesan atau tidak valid. Ulangi!\n";
+            --i;
+        } else {
+            kursiDipilih.push_back(kodeKursi);
+            pesanan.kursi.push_back(kodeKursi);
+        }
+    }
+
+    pesanan.namaPemesan = "User";
+    pesanan.studio = studio;
+    pesanan.judulFilm = judul;
+    pesanan.waktu = waktu;
+    pesanan.durasi = daftarFilm[pilihanJudul].durasi[pilihanJam];
+    pesanan.genre = daftarFilm[pilihanJudul].genre;
+    pesanan.jenisTiket = (jenisTiket == 1) ? "Reguler" : "Premier";
+    pesanan.harga = hargaFinal;
+    pesanan.jumlahTiket = jumlahTiket;
+    pesanan.totalHarga = total;
+
+    daftarPemesanan.push_back(pesanan);
+
+    ofstream file("daftar_pesanan.txt", ios::app);
+    if (file.is_open()) {
+        file << "\n============ PESANAN BARU MASUK ============\n";
+        file << "Kode Unik Pemesanan   : EMPIRE-" << setw(6) << setfill('0') << kodeUnik << endl;
+        file << "Waktu Transaksi       : " << waktuTransaksi << endl;
+        file << pesanan.namaPemesan << endl << endl;
+        file << "Studio                : " << pesanan.studio << endl;
+        file << "Judul Film            : " << pesanan.judulFilm << endl;
+        file << "Waktu                 : " << pesanan.waktu << endl;
+        file << "Durasi                : " << pesanan.durasi << endl;
+        file << "Genre                 : " << pesanan.genre << endl;
+        file << "Jenis Tiket           : " << pesanan.jenisTiket << endl;
+        file << "Harga                 : " << pesanan.harga << endl;
+        file << "Jumlah Tiket          : " << pesanan.jumlahTiket << endl;
+        file << "Kursi yang dipilih    : ";
+        for (size_t i = 0; i < pesanan.kursi.size(); ++i) {
+    	file << pesanan.kursi[i] << " ";
 		}
-		file << endl;
-	    file << "Total Harga		: "<< pesanan.totalHarga << endl;
-	    file.close();
-	    cout << "Pesanan berhasil disimpan ke file.\n";
-	} else {
-	    cout << "Gagal menyimpan ke file.\n";
-	}
-	
-	cout << "\n=== PEMBAYARAN ===\n";
-	cout << "Pilih metode pembayaran:\n";
-	cout << "1. Tunai\n2. Non-Tunai\nPilihan: ";
-	
-	int pilihBayar;
-	cin >> pilihBayar;
 
-	if (pilihBayar == 1) {
-    	pesanan.metodePembayaran = "Tunai";
-	} else if (pilihBayar == 2) {
-    	pesanan.metodePembayaran = "Non-Tunai";
-	} else {
-    	cout << "Pilihan tidak valid. Dibatalkan.\n";
-    	return;
-	}
+        file << endl;
+        if (KuponValid)
+            file << "Kupon Digunakan       : " << kodeKupon << " (" << diskonKupon << "%)" << endl;
 
-	pesanan.sudahDibayar = true;
+        // Metode pembayaran
+        cout << "\n===== PEMBAYARAN =====\n";
+        cout << "Pilih metode pembayaran:\n";
+        cout << "1. Tunai\n2. Non-Tunai\nPilihan: ";
+        int pilihBayar;
+cin >> pilihBayar;
 
-	file << "Metode Pembayaran   : " << pesanan.metodePembayaran << endl;
-	file << "Status Pembayaran   : " << (pesanan.sudahDibayar ? "Sudah Dibayar" : "Belum Dibayar") << endl;
+if (pilihBayar == 1) {
+    pesanan.metodePembayaran = "Tunai";
+    pesanan.sudahDibayar = true;
+} else if (pilihBayar == 2) {
+    pesanan.metodePembayaran = "Non-Tunai";
+    pesanan.sudahDibayar = true;
+} else {
+    cout << "Pilihan tidak valid. Dibatalkan.\n";
+    return;
+}
 
-	if (pesanan.sudahDibayar) {
-    	cout << "\nPesanan ini sudah dibayar dan tidak bisa diubah.\n";
-    	return;
-	}
 
+        pesanan.sudahDibayar = true;
+        file << "Metode Pembayaran     : " << pesanan.metodePembayaran << endl;
+        file << "Status Pembayaran     : Sudah Dibayar" << endl;
+        file.close();
+
+        cout << "\nPesanan ini sudah dibayar dan tidak bisa diubah.\n";
+    } else {
+        cout << "Gagal menyimpan ke file.\n";
+    }
 }
 
 void bukaFilePesanan() {
@@ -1109,14 +1497,14 @@ void editPemesanan() {
             Pemesanan &q = daftarPemesanan[i];
             file << "============ PESANAN YANG DIUBAH ============\n" << endl;
             file << q.namaPemesan << endl <<endl;
-			file << "Studio 		:" << q.studio <<endl;
-			file << "Judul Film 	:" << q.judulFilm <<endl;
-			file << "Waktu 			:" << q.waktu <<endl;
-			file << "Durasi 		:" << q.durasi <<endl;
-			file << "Genre 			:" << q.genre <<endl;
-			file << "Jenis Tiket 	:" << q.jenisTiket <<endl;
-			file << "Harga 			:" << q.harga <<endl;
-			file << "Jumlah Tiket 	:" << q.jumlahTiket <<endl;
+			file << "Studio 		    :" << q.studio <<endl;
+			file << "Judul Film 	    :" << q.judulFilm <<endl;
+			file << "Waktu 			    :" << q.waktu <<endl;
+			file << "Durasi 	     	:" << q.durasi <<endl;
+			file << "Genre 			    :" << q.genre <<endl;
+			file << "Jenis Tiket 	    :" << q.jenisTiket <<endl;
+			file << "Harga 			    :" << q.harga <<endl;
+			file << "Jumlah Tiket 	    :" << q.jumlahTiket <<endl;
 			file << "Kursi yang dipilih : ";
 			for (int j = 0; j < q.kursi.size(); ++j) {
 			    file << q.kursi[j] << " ";
@@ -1154,7 +1542,7 @@ void editPemesananUser() {
     cout << "\n============ DAFTAR PEMESANAN ============\n\n";
     for (int i = 0; i < daftarPemesanan.size(); i++) {
         cout << i + 1 << ". " << daftarPemesanan[i].judulFilm
-             << " | Studio: " << daftarPemesanan[i].studio
+             << " | Studio      : " << daftarPemesanan[i].studio
              << " | Jumlah Tiket: " << daftarPemesanan[i].jumlahTiket << "\n";
     }
 
@@ -1238,21 +1626,20 @@ void editKursi(string kodeLama, string kodeBaru) {
     rename("temp.txt", "layoutkursi.txt");
 
     if (!ditemukanLama) {
-        cout << "? Kursi lama tidak ditemukan.\n";
+        cout << " Kursi lama tidak ditemukan.\n";
     } else if (!ditemukanBaru) {
-        cout << "? Kursi baru tidak ditemukan.\n";
+        cout << " Kursi baru tidak ditemukan.\n";
     } else if (!kursiBaruTersedia) {
-        cout << "? Kursi baru sudah dipesan.\n";
+        cout << " Kursi baru sudah dipesan.\n";
     } else {
         ofstream log("datapemesanankursi.txt", ios::app);
-        log << "Kursi " << kodeLama << " diubah ke " << kodeBaru << ".\n";
+        log << " Kursi " << kodeLama << " diubah ke " << kodeBaru << ".\n";
         log.close();
-        cout << "? Kursi berhasil diubah.\n";
+        cout << " Kursi berhasil diubah.\n";
     }
 }
 
 int main() {
-    system("color 2");
     ifstream cek("layoutkursi.txt");
     if (!cek || cek.peek() == ifstream::traits_type::eof()) {
         initLayout();
@@ -1282,10 +1669,15 @@ int main() {
             	switch (pilihan) {
                 	case 1: lihatDataDiri(bacaAkun()[index_login]); break;
                 	case 2: jadwal(); break;
-                	case 3: pesan_tiket(); break;
-                	case 4: bukaFilePesanan(); break;
-                	case 5: editPemesananUser(); break;
-                	case 6: {
+                	case 3: {
+                		searcing a;
+                		a.pencarian();
+						break;
+					}
+                	case 4: pesan_tiket(); break;
+                	case 5: bukaFilePesanan(); break;
+                	case 6: editPemesananUser(); break;
+                	case 7: {
                 		system("cls");
 	                		int jumlahKursi;
 	                		 
@@ -1298,9 +1690,9 @@ int main() {
 						    for (int i = 0; i < jumlahKursi; ++i) {
 						        string kodeLama, kodeBaru;
 						        cout << "\nKursi ke-" << i+1 << endl;
-						        cout << "Masukkan kode kursi lama: ";
+						        cout << "Masukkan kode kursi lama : ";
 						        getline(cin, kodeLama);
-						        cout << "Masukkan kode kursi baru: ";
+						        cout << "Masukkan kode kursi baru : ";
 						        getline(cin, kodeBaru);
 						        editKursi(kodeLama, kodeBaru);
 						        daftarKursiBaru.push_back(make_pair(kodeLama, kodeBaru));
@@ -1343,11 +1735,15 @@ int main() {
 						    system("pause");
 							break;
 					}
-					case 7:
+					case 8:
     					index_login = -1; 
 						break;
                 	case 0: cout << "Keluar dari program.\n"; break;
-                	default: cout << "Pilihan tidak valid.\n"; break;
+                	default: 
+					cout << " Pilihan tidak valid.\n";
+					system("pause");
+					system("cls");
+					; break;
             	}
         	} else if (tipe_login == LOGIN_ADMIN) {
         		string kode;
@@ -1355,10 +1751,15 @@ int main() {
             	cin >> pilihan;
             	switch (pilihan) {
                 	case 1: tampilfilm(); break;
-                	case 2: pesan_tiket(); break;
-                	case 3: bukaFilePesanan(); break;
-                	case 4: editPemesanan(); break;
-                	case 5: {
+                	case 2: {
+                		searcing a;
+                		a.pencarian();
+						break;
+					}
+                	case 3: pesan_tiket(); break;
+                	case 4: bukaFilePesanan(); break;
+                	case 5: editPemesanan(); break;
+                	case 6: {
                 		 int jumlahKursi;
                 		 
                 		vector<pair<string, string> > daftarKursiBaru;
@@ -1415,10 +1816,14 @@ int main() {
 					    system("pause");
 					    break;
 					}
-					case 6: statistikKursiTerisi(); break;
-                	case 7: index_login = -1; tipe_login = TIDAK_LOGIN; break;
+					case 7: statistikKursiTerisi(); break;
+                	case 8: index_login = -1; tipe_login = TIDAK_LOGIN; break;
                 	case 0: cout << "Keluar dari program.\n"; break;
-                	default: cout << "Pilihan tidak valid.\n"; break;
+                	default: 
+					cout << "Pilihan tidak valid.\n"; 
+					system("pause");
+					system("cls");
+					break;
             	}
         	}
     	}
